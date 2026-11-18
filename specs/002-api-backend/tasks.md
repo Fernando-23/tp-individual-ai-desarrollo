@@ -274,7 +274,7 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
 
 ## Phase 11: Polish & Cross-Cutting Concerns
 
-- [ ] T042 Arrancar el servidor real (`npm start`) en segundo plano y recorrer el quickstart con curl:
+- [X] T042 Arrancar el servidor real (`npm start`) en segundo plano y recorrer el quickstart con curl:
   - usuarios;
   - búsqueda;
   - mis compras de Leo;
@@ -283,10 +283,10 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
   - 401 y 403.
 
   Verificar que el servidor imprime las URLs. Después, detenerlo.
-- [ ] T043 [P] Crear `specs/002-api-backend/trazabilidad.md`, que asocia cada FR y cada escenario de la spec con su test de API, y cada caso de uso con el endpoint que lo resuelve (SC-001 a SC-003).
-- [ ] T044 [P] Actualizar `CLAUDE.md` (sección manual: comandos `npm start` y `npm run dev`, y estructura de `backend/src`).
-- [ ] T045 Correr `npm test` y `npm run lint` finales y anotar la cantidad de tests.
-- [ ] T046 Agregar a `docs/bitacora-ia.md` la entrada de la implementación de la 002: qué salió bien, qué hubo que corregir y la regla de dominio que faltaba.
+- [X] T043 [P] Crear `specs/002-api-backend/trazabilidad.md`, que asocia cada FR y cada escenario de la spec con su test de API, y cada caso de uso con el endpoint que lo resuelve (SC-001 a SC-003).
+- [X] T044 [P] Actualizar `CLAUDE.md` (sección manual: comandos `npm start` y `npm run dev`, y estructura de `backend/src`).
+- [X] T045 Correr `npm test` y `npm run lint` finales y anotar la cantidad de tests.
+- [X] T046 Agregar a `docs/bitacora-ia.md` la entrada de la implementación de la 002: qué salió bien, qué hubo que corregir y la regla de dominio que faltaba.
 
 ---
 

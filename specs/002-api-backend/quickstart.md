@@ -21,6 +21,10 @@ Datos de demostración cargados: 4 usuarios, 8 eventos, 11 compras
 
 El puerto se cambia con la variable `PORT`.
 
+Si la PC tiene adaptadores virtuales (WSL, VirtualBox, VPN), aparecen varias
+líneas "Red local". Hay que usar la de la placa Wi-Fi: suele ser
+`192.168.x.x`, y en Windows se confirma con `ipconfig`.
+
 ## Tests y lint
 
 ```bash
