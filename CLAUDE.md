@@ -3,13 +3,22 @@
 Auto-generated from all feature plans. Last updated: 2026-11-18
 
 ## Active Technologies
+- JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + Express 5.x (ejecución). De desarrollo: Supertest 7.x, más Vitest 5.x y ESLint 10.x, que ya estaban (002-api-backend)
+- en memoria (`Map` por agregado), con seed al arrancar. Se pierde al reiniciar (requisito del enunciado) (002-api-backend)
 
 - JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + ninguna de ejecución. De desarrollo: Vitest 5.x, ESLint 10.x y `@eslint/js` (001-modelo-dominio)
 
 ## Project Structure
 
 ```text
-backend/   # Node + Express (src/domain, luego routes/services/repositories) y tests/
+backend/
+  src/domain/        # reglas puras (feature 001)
+  src/services/      # casos de uso: buscan en repos, delegan en el dominio
+  src/repositories/  # Map en memoria
+  src/routes/        # Express: solo leen la request, llaman a un servicio y presentan
+  src/http/          # middlewares (usuario actual, errores) y presentadores
+  src/seed/          # datos de demostración (fechas relativas al arranque)
+  tests/domain/  tests/api/
 mobile/    # React Native con Expo (feature futura)
 specs/     # una carpeta por feature de Spec Kit
 docs/      # bitacora-ia.md
@@ -17,13 +26,14 @@ docs/      # bitacora-ia.md
 
 ## Commands
 
-Desde `backend/`: npm test; npm run lint
+Desde `backend/`: npm start (o npm run dev); npm test; npm run lint
 
 ## Code Style
 
 JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12): Follow standard conventions
 
 ## Recent Changes
+- 002-api-backend: Added JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + Express 5.x (ejecución). De desarrollo: Supertest 7.x, más Vitest 5.x y ESLint 10.x, que ya estaban
 
 - 001-modelo-dominio: Added JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + ninguna de ejecución. De desarrollo: Vitest 5.x, ESLint 10.x y `@eslint/js`
 
@@ -39,4 +49,7 @@ JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12): Follow standar
 - Registrá en `docs/bitacora-ia.md` lo que la IA hizo bien, lo que hubo que
   corregir y por qué.
 - Antes de dar una tarea por terminada: `npm test` y `npm run lint` en `backend/`.
+- El contrato de la API (rutas, vistas JSON y códigos de error) está en
+  `specs/002-api-backend/contracts/api.md`: es la referencia para la app mobile.
+- Los tests de API usan `appDePrueba()` (seed + reloj fijo) de `backend/tests/api/helpers.js`.
 <!-- MANUAL ADDITIONS END -->

@@ -51,6 +51,10 @@ export class Compra {
     if (!evento.incluyeTipo(tipoEntrada)) {
       throw new ErrorValidacion(`El tipo de entrada "${tipoEntrada.nombre}" no pertenece al evento`);
     }
+    // Agregada en la feature 002 (plan 002, requisito derivado 2).
+    if (evento.yaSeRealizo(ahora)) {
+      throw new ErrorConflicto('El evento ya se realizó: no se pueden comprar entradas');
+    }
     if (!tipoEntrada.hayCupoPara(cantidad)) {
       throw new ErrorConflicto(
         `No hay cupo suficiente de "${tipoEntrada.nombre}": quedan ${tipoEntrada.cupoDisponible()} y se pidieron ${cantidad}`,

@@ -89,3 +89,45 @@ las dificultades del proceso. Es la base de la conclusión final del video.
 - **Pendiente detectado al hacer la trazabilidad**: para ordenar eventos por
   precio (caso de uso 11) hay que decidir qué precio representa a un evento
   (¿el mínimo?). Queda para la spec de ese caso de uso.
+
+## 2026-11-18 — Spec 002: backend de punta a punta
+
+- La IA agrupó los 12 casos de uso en 8 historias priorizadas, más una
+  historia de "datos de demostración" pensada para el video (incluye un
+  evento que es hoy y una compra utilizada sin reseñar).
+- Preguntas resueltas (opciones recomendadas): el catálogo muestra solo
+  eventos próximos; para ordenar se usa el precio más bajo del evento; los
+  favoritos se incluyen aunque no estén en los 12 casos de uso.
+- **Error de la IA**: durante varias respuestas afirmó que el repo "no tiene
+  remoto" sin haberlo verificado nunca. Al pedirle un push, lo chequeó y
+  `origin` existía (vacío). Lección: verificar antes de afirmar, incluso
+  sobre datos "obvios" del entorno.
+
+## 2026-11-18 — Plan, tareas e implementación 002 (sin revisión intermedia)
+
+- **Contexto**: el usuario tuvo que irse y pidió seguir. Plan, tareas e
+  implementación se hicieron **sin la revisión humana entre etapas** que pide
+  la constitución, por instrucción explícita del usuario. Para compensar,
+  cada etapa quedó en su propio commit, así se puede revisar y revertir por
+  separado.
+- **Resultado**: 46 tareas completas y 282 tests en verde (169 de dominio y
+  113 de API). Lint limpio. El servidor real se probó con curl.
+- **Decisiones que conviene revisar** (están en el plan y en research):
+  - Se agregó el código **401** para "usuario no identificado", que no está
+    en la lista de la constitución. Quedó justificado en el Complexity
+    Tracking del plan.
+  - Los cambios de estado son **rutas con verbos** (`/confirmar`,
+    `/registrar-ingreso`) en lugar de un `PATCH` del estado.
+  - Se agregó **`GET /api/mis-eventos`**, que no estaba en la spec pero hace
+    falta para elegir de qué evento ver las ventas.
+- **Hallazgo**: al diseñar `POST /api/compras` la IA detectó que el dominio
+  de la feature 001 **permitía comprar entradas de un evento que ya pasó**.
+  Se agregó la regla a `Compra.crear`, con su test. La spec 001 no lo había
+  previsto.
+- **Bug que atrapó un test**: el middleware de usuario aplicado a todo un
+  router convertía cualquier ruta inexistente en 401 en lugar de 404. El test
+  de "ruta inexistente → 404" lo detectó y se limitó a las rutas `/mis-*`.
+- **Ajuste de un test**: un test del catálogo dependía de la historia de
+  publicar eventos (US8). Se reescribió para que US2 fuera independiente.
+- Las historias de cancelación (US5) pasaron sin código nuevo: ya las cubría
+  la ruta de acciones de US4, como estaba previsto en las tareas.
