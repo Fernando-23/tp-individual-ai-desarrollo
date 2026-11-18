@@ -1,3 +1,5 @@
+import { crearCatalogoService } from './catalogoService.js';
+import { crearFavoritosService } from './favoritosService.js';
 import { crearUsuariosService } from './usuariosService.js';
 
 /**
@@ -5,7 +7,10 @@ import { crearUsuariosService } from './usuariosService.js';
  * repositorios y dominio; las reglas de negocio quedan en domain/ (FR-026).
  */
 export function crearServicios(dependencias) {
+  const catalogo = crearCatalogoService(dependencias);
   return {
     usuarios: crearUsuariosService(dependencias),
+    catalogo,
+    favoritos: crearFavoritosService({ ...dependencias, catalogo }),
   };
 }

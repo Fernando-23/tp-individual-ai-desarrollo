@@ -122,7 +122,7 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
 
 **Independent Test**: con el seed, búsquedas, filtros y órdenes devuelven exactamente los ids esperados.
 
-- [ ] T020 [P] [US2] Escribir `backend/tests/api/catalogo.test.js` (escenarios 1 a 9 de la Historia 2):
+- [X] T020 [P] [US2] Escribir `backend/tests/api/catalogo.test.js` (escenarios 1 a 9 de la Historia 2):
   - `GET /api/categorias` → 6.
   - **Catálogo**: `GET /api/eventos` devuelve los 6 próximos, sin `e-tango` ni `e-impro`, ordenados por fecha (`e-standup` primero).
   - **Búsqueda de texto**: `texto=jazz`, `texto=JÁZZ` y `texto=  jazz ` → `[e-jazz]`; `texto=xyz` → `[]`.
@@ -143,7 +143,7 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
     - `e-tango` (pasado) → 200;
     - `e-nada` → 404;
     - `esFavorito` es `null` sin header y `true` para `u-leo` en `e-rock`.
-- [ ] T021 [P] [US2] Escribir `backend/tests/api/favoritos.test.js` (FR-024):
+- [X] T021 [P] [US2] Escribir `backend/tests/api/favoritos.test.js` (FR-024):
   - `GET /api/mis-favoritos` como Leo → `[e-rock, e-hamlet]`, en el orden en que se marcaron;
   - `PUT /api/mis-favoritos/e-jazz` → 204, y vuelve a aparecer en la lista;
   - un segundo `PUT` al mismo evento no lo duplica;
@@ -152,19 +152,19 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
   - sin header → 401.
 
   Verificar que T020 y T021 fallen.
-- [ ] T022 [US2] Implementar `backend/src/services/catalogoService.js`:
+- [X] T022 [US2] Implementar `backend/src/services/catalogoService.js`:
   - `categorias()`;
   - `buscar({ texto, categoria, precioMin, precioMax, orden }, ahora)`: valida los parámetros (`ErrorValidacion`), filtra los próximos (`!yaSeRealizo`), aplica `coincideTexto` y `tuPrecioEstaEntre` (los lados abiertos son 0 e `Infinity`) y ordena con desempate por fecha y nombre;
   - `puntajeDe(organizador)` y `reseniasDe(organizador)`;
   - `detalle(id, usuario)`, que lanza `ErrorNoEncontrado`.
-- [ ] T023 [US2] Implementar `backend/src/services/favoritosService.js` (`listar`, `marcar` y `desmarcar`, con `ErrorNoEncontrado` si el evento no existe).
-- [ ] T024 [US2] Implementar:
+- [X] T023 [US2] Implementar `backend/src/services/favoritosService.js` (`listar`, `marcar` y `desmarcar`, con `ErrorNoEncontrado` si el evento no existe).
+- [X] T024 [US2] Implementar:
   - `backend/src/routes/categorias.js`;
   - `GET /api/eventos` y `GET /api/eventos/:id` (este con `usuarioOpcional`) en `backend/src/routes/eventos.js`;
   - las rutas de favoritos en `backend/src/routes/misRecursos.js`.
 
   Montar todo en `src/routes/index.js`.
-- [ ] T025 [US2] Correr `npm test` y `npm run lint`: T020 y T021 en verde.
+- [X] T025 [US2] Correr `npm test` y `npm run lint`: T020 y T021 en verde.
 
 ---
 
