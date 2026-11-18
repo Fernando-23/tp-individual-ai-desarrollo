@@ -17,6 +17,11 @@ export function crearRutasMisRecursos({ servicios, usuario, vistas, reloj }) {
     res.json(servicios.compras.misCompras(req.usuario).map((c) => presentar.compraResumen(c, ahora)));
   });
 
+  // Mis eventos como organizador, incluidos los pasados (para elegir de cuál ver ventas)
+  router.get('/mis-eventos', (req, res) => {
+    res.json(servicios.eventos.misEventos(req.usuario).map(vistas.eventoResumen));
+  });
+
   // Favoritos (FR-024)
   router.get('/mis-favoritos', (req, res) => {
     res.json(servicios.favoritos.listar(req.usuario).map(vistas.eventoResumen));

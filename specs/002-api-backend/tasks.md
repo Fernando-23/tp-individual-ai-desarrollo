@@ -198,7 +198,7 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
 
 **Independent Test**: Ana ve las ventas de Jazz y confirma `k-002`; Bruno registra el ingreso de `k-006`.
 
-- [ ] T030 [P] [US4] Escribir `backend/tests/api/ventas.test.js` (escenarios 1 a 7 de la Historia 4):
+- [X] T030 [P] [US4] Escribir `backend/tests/api/ventas.test.js` (escenarios 1 a 7 de la Historia 4):
   - **Ventas**: `GET /api/eventos/e-jazz/ventas` como Ana → 200, con `tiposEntrada` (VIP: cupo 20, ocupadas 2, disponibles 18; General: ocupadas 4), `cantidadPorEstado` (PENDIENTE 1, CONFIRMADA 1) y `compras` con el comprador. Como Leo → 403; `e-nada` → 404.
   - **Mis eventos**: `GET /api/mis-eventos` como Ana → sus 4 eventos (incluido `e-tango`, pasado), por fecha.
   - **Confirmar**: `POST /api/compras/k-002/confirmar` como Ana → 200 CONFIRMADA, y el historial termina con Ana. Como Sofía → 403. Confirmar `k-001` (ya confirmada) → 409.
@@ -207,9 +207,9 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
   - **Inexistente**: `k-nada` → 404.
 
   Verificar que falle.
-- [ ] T031 [US4] Implementar en `backend/src/services/eventosService.js` los métodos `ventas(id, usuario)` (404, y `ErrorPermiso` si no es el organizador) y `misEventos(usuario)`. Implementar en `comprasService.js` `cambiarEstado(id, accion, usuario, ahora)`, que mapea `confirmar | rechazar | cancelar | registrar-ingreso` al atajo del dominio.
-- [ ] T032 [US4] Implementar `GET /api/eventos/:id/ventas`, `GET /api/mis-eventos` y `POST /api/compras/:id/:accion` (validando que `accion` sea una de las 4; si no, 404 de ruta).
-- [ ] T033 [US4] Correr `npm test` y `npm run lint`.
+- [X] T031 [US4] Implementar en `backend/src/services/eventosService.js` los métodos `ventas(id, usuario)` (404, y `ErrorPermiso` si no es el organizador) y `misEventos(usuario)`. Implementar en `comprasService.js` `cambiarEstado(id, accion, usuario, ahora)`, que mapea `confirmar | rechazar | cancelar | registrar-ingreso` al atajo del dominio.
+- [X] T032 [US4] Implementar `GET /api/eventos/:id/ventas`, `GET /api/mis-eventos` y `POST /api/compras/:id/:accion` (validando que `accion` sea una de las 4; si no, 404 de ruta).
+- [X] T033 [US4] Correr `npm test` y `npm run lint`.
 
 ---
 

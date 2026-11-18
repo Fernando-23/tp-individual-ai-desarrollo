@@ -2,6 +2,14 @@ import { Compra } from '../domain/compra.js';
 import { ErrorPermiso, ErrorValidacion } from '../domain/errores.js';
 import { ErrorNoEncontrado } from './errores.js';
 
+/** Acción de la URL → atajo del dominio (contracts/api.md). */
+export const ACCIONES = Object.freeze({
+  confirmar: Compra.prototype.confirmar,
+  rechazar: Compra.prototype.rechazar,
+  cancelar: Compra.prototype.cancelar,
+  'registrar-ingreso': Compra.prototype.marcarUtilizada,
+});
+
 /**
  * Compras: comprar, mis compras, detalle, cambios de estado y chat
  * (FR-015 a FR-018, FR-020, FR-021). Las reglas son del dominio: este
@@ -58,5 +66,15 @@ export function crearComprasService({ repositorios, reloj, generarId }) {
     },
 
     detalle: compraVisiblePara,
+
+    /**
+     * Cambio de estado por acción de negocio (research D8). Los permisos y la
+     * tabla de transiciones los resuelve el dominio (actualizarEstado).
+     */
+    cambiarEstado(id, accion, usuario) {
+      const compra = buscarCompra(id);
+      ACCIONES[accion].call(compra, usuario, reloj());
+      return compra;
+    },
   };
 }
