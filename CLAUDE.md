@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2026-11-18
 
 ## Active Technologies
+- JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + Express 5.x (ejecución). De desarrollo: Supertest 7.x, más Vitest 5.x y ESLint 10.x, que ya estaban (002-api-backend)
+- en memoria (`Map` por agregado), con seed al arrancar. Se pierde al reiniciar (requisito del enunciado) (002-api-backend)
 
 - JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + ninguna de ejecución. De desarrollo: Vitest 5.x, ESLint 10.x y `@eslint/js` (001-modelo-dominio)
 
@@ -24,6 +26,7 @@ Desde `backend/`: npm test; npm run lint
 JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12): Follow standard conventions
 
 ## Recent Changes
+- 002-api-backend: Added JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + Express 5.x (ejecución). De desarrollo: Supertest 7.x, más Vitest 5.x y ESLint 10.x, que ya estaban
 
 - 001-modelo-dominio: Added JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + ninguna de ejecución. De desarrollo: Vitest 5.x, ESLint 10.x y `@eslint/js`
 
