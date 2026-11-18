@@ -16,6 +16,18 @@ export function crearRutasEventos({ servicios, usuario, vistas }) {
     res.json(vistas.eventoDetalle(evento, req.usuario));
   });
 
+  // Publicar un evento: el usuario actual queda como organizador (FR-023).
+  router.post('/', usuario.requerirUsuario, (req, res) => {
+    const evento = servicios.eventos.publicar(req.body, req.usuario);
+    res.status(201).json(vistas.eventoDetalle(evento, req.usuario));
+  });
+
+  // Reseñar un evento al que se asistió (FR-022).
+  router.post('/:id/resenias', usuario.requerirUsuario, (req, res) => {
+    const resenia = servicios.eventos.reseniar(req.params.id, req.body, req.usuario);
+    res.status(201).json(presentar.resenia(resenia));
+  });
+
   // Ventas del evento, solo para su organizador (FR-019).
   router.get('/:id/ventas', usuario.requerirUsuario, (req, res) => {
     res.json(presentar.ventas(servicios.eventos.ventas(req.params.id, req.usuario)));

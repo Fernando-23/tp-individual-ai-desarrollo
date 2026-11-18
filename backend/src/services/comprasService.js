@@ -76,5 +76,15 @@ export function crearComprasService({ repositorios, reloj, generarId }) {
       ACCIONES[accion].call(compra, usuario, reloj());
       return compra;
     },
+
+    /** Chat de la compra, en orden (FR-021). */
+    mensajes(id, usuario) {
+      return compraVisiblePara(id, usuario).mensajes;
+    },
+
+    /** Quién puede escribir y qué es un mensaje válido lo decide el dominio. */
+    enviarMensaje(id, texto, usuario) {
+      return buscarCompra(id).enviarMensaje(usuario, texto, reloj());
+    },
   };
 }

@@ -215,19 +215,19 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
 
 ## Phase 7: User Story 5 - Cancelar y obtener el reembolso (Priority: P2)
 
-- [ ] T034 [P] [US5] Escribir `backend/tests/api/cancelacion.test.js` (escenarios 1 a 4):
+- [X] T034 [P] [US5] Escribir `backend/tests/api/cancelacion.test.js` (escenarios 1 a 4):
   - Leo cancela `k-001` → 200 REEMBOLSADA, y los disponibles de VIP vuelven a 20;
   - Sofía cancela `k-002` → CANCELADA;
   - Sofía cancela `k-008` (UTILIZADA) → 409;
   - Sofía cancela `k-001` (ajena) → 403;
   - con `appDePrueba({ ahora })` posterior al evento Jazz, cancelar `k-001` → 409 ("ya se realizó").
-- [ ] T035 [US5] Verificar que pase. Ya debería pasar con `cambiarEstado` de US4: si no, corregir y anotar el motivo en la bitácora.
+- [X] T035 [US5] Verificar que pase. Ya debería pasar con `cambiarEstado` de US4: si no, corregir y anotar el motivo en la bitácora.
 
 ---
 
 ## Phase 8: User Story 6 - Chatear dentro de una compra (Priority: P2)
 
-- [ ] T036 [P] [US6] Escribir `backend/tests/api/mensajes.test.js` (escenarios 1 a 4):
+- [X] T036 [P] [US6] Escribir `backend/tests/api/mensajes.test.js` (escenarios 1 a 4):
   - `GET /api/compras/k-001/mensajes` como Ana → los 2 del seed, en orden;
   - `POST` como Leo `{ mensaje: 'Gracias' }` → 201 con `usuario.id` u-leo y `enviado` igual a AHORA en ISO, y aparece al final;
   - como Sofía (GET o POST) → 403;
@@ -235,13 +235,13 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
   - `k-nada` → 404.
 
   Verificar que falle.
-- [ ] T037 [US6] Implementar `mensajes(id, usuario)` y `enviarMensaje(id, texto, usuario, ahora)` en `comprasService.js`, y las rutas `GET` y `POST /api/compras/:id/mensajes`. Correr los tests.
+- [X] T037 [US6] Implementar `mensajes(id, usuario)` y `enviarMensaje(id, texto, usuario, ahora)` en `comprasService.js`, y las rutas `GET` y `POST /api/compras/:id/mensajes`. Correr los tests.
 
 ---
 
 ## Phase 9: User Story 7 - Reseñar un evento (Priority: P2)
 
-- [ ] T038 [P] [US7] Escribir `backend/tests/api/resenias.test.js` (escenarios 1 a 3):
+- [X] T038 [P] [US7] Escribir `backend/tests/api/resenias.test.js` (escenarios 1 a 3):
   - `POST /api/eventos/e-impro/resenias` como Leo `{ puntuacion: 5, detalle: 'Genial' }` → 201, y después el puntaje de Bruno en `GET /api/eventos/e-hamlet` es 4 (promedio de 3 y 5);
   - como Ana (sin compra) → 403;
   - Sofía sobre Impro (ya reseñó) → 409;
@@ -249,20 +249,20 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
   - `e-nada` → 404.
 
   Verificar que falle.
-- [ ] T039 [US7] Implementar `reseniar(eventoId, datos, usuario)` en `eventosService.js` (genera el id) y `POST /api/eventos/:id/resenias`. Correr los tests.
+- [X] T039 [US7] Implementar `reseniar(eventoId, datos, usuario)` en `eventosService.js` (genera el id) y `POST /api/eventos/:id/resenias`. Correr los tests.
 
 ---
 
 ## Phase 10: User Story 8 - Publicar un evento (Priority: P3)
 
-- [ ] T040 [P] [US8] Escribir `backend/tests/api/publicacion.test.js` (escenarios 1 a 3):
+- [X] T040 [P] [US8] Escribir `backend/tests/api/publicacion.test.js` (escenarios 1 a 3):
   - **Publicar**: `POST /api/eventos` como Leo, con General ($5000, 200) y VIP ($15000, 20), categoría `c-recitales` y fecha +20 días → 201 con `organizador.id` u-leo y los ids generados. Aparece en `GET /api/eventos?texto=<nombre>`.
   - **Comprar**: Sofía compra de ese evento → 201.
   - **Datos inválidos** → 400: sin tipos; `categoriaId: 'c-nada'`; fecha pasada; fecha inválida; precio negativo.
   - **Sin header** → 401.
 
   Verificar que falle.
-- [ ] T041 [US8] Implementar `publicar(datos, usuario, ahora)` en `eventosService.js`:
+- [X] T041 [US8] Implementar `publicar(datos, usuario, ahora)` en `eventosService.js`:
   - valida la forma del body (arreglos, tipos);
   - busca la categoría (400 si no existe);
   - exige que la fecha sea futura (`ErrorValidacion`);

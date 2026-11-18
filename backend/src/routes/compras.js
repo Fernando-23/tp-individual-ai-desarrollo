@@ -20,6 +20,15 @@ export function crearRutasCompras({ servicios, usuario, reloj }) {
     res.json(detalle(servicios.compras.detalle(req.params.id, req.usuario)));
   });
 
+  // Chat (FR-021). Va antes de /:id/:accion para que "mensajes" no se tome como acción.
+  router.get('/:id/mensajes', (req, res) => {
+    res.json(servicios.compras.mensajes(req.params.id, req.usuario).map(presentar.mensaje));
+  });
+  router.post('/:id/mensajes', (req, res) => {
+    const mensaje = servicios.compras.enviarMensaje(req.params.id, req.body?.mensaje, req.usuario);
+    res.status(201).json(presentar.mensaje(mensaje));
+  });
+
   // Cambios de estado con verbo de negocio (FR-018, FR-020; research D8)
   router.post('/:id/:accion', (req, res, next) => {
     if (!Object.hasOwn(ACCIONES, req.params.accion)) {
