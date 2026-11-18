@@ -174,7 +174,7 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
 
 **Independent Test**: Sofía compra, se rechaza un pedido que supera el cupo y Leo ve sus compras con `diasRestantes`.
 
-- [ ] T026 [P] [US3] Escribir `backend/tests/api/compras.test.js` (escenarios 1 a 5 de la Historia 3):
+- [X] T026 [P] [US3] Escribir `backend/tests/api/compras.test.js` (escenarios 1 a 5 de la Historia 3):
   - **Compra válida**: `POST /api/compras` como Sofía `{ e-rock, t-rock-vip, 2 }` → 201, `estado` PENDIENTE, `total` 70000; después, `disponibles` de VIP en el detalle baja en 2.
   - **Sin cupo**: pedir más que lo disponible → 409 y los disponibles no cambian.
   - **Datos inválidos** → 400: `cantidad: "2"` o `0`; `eventoId` o `tipoEntradaId` inexistentes; un tipo de otro evento.
@@ -183,12 +183,12 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
   - **Detalle**: `GET /api/compras/k-001` como Leo → 200 con `historial` y `mensajes`; como Ana (organizadora) → 200; como Sofía → 403; `k-nada` → 404.
 
   Activar el test de 401 de T015. Verificar que falle.
-- [ ] T027 [US3] Implementar en `backend/src/services/comprasService.js`:
+- [X] T027 [US3] Implementar en `backend/src/services/comprasService.js`:
   - `comprar({ eventoId, tipoEntradaId, cantidad }, usuario, ahora)`: busca el evento y el tipo (400 si no existen en el body) y llama a `Compra.crear` con `generarId`;
   - `misCompras(usuario)`;
   - `detalle(id, usuario)`: lanza 404 si no existe y `ErrorPermiso` si no es el comprador ni el organizador.
-- [ ] T028 [US3] Implementar en `backend/src/routes/compras.js` las rutas `POST /api/compras` y `GET /api/compras/:id`, y `GET /api/mis-compras` en `misRecursos.js`.
-- [ ] T029 [US3] Correr `npm test` y `npm run lint`.
+- [X] T028 [US3] Implementar en `backend/src/routes/compras.js` las rutas `POST /api/compras` y `GET /api/compras/:id`, y `GET /api/mis-compras` en `misRecursos.js`.
+- [X] T029 [US3] Correr `npm test` y `npm run lint`.
 
 ---
 

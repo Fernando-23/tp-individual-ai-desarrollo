@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { crearRutasCategorias } from './categorias.js';
+import { crearRutasCompras } from './compras.js';
 import { crearRutasEventos } from './eventos.js';
 import { crearRutasMisRecursos } from './misRecursos.js';
 import { crearRutasUsuarios } from './usuarios.js';
@@ -19,6 +20,7 @@ export function crearRutas(dependencias) {
   router.use('/usuarios', crearRutasUsuarios(deps));
   router.use('/categorias', crearRutasCategorias(deps));
   router.use('/eventos', crearRutasEventos(deps));
+  router.use('/compras', crearRutasCompras(deps));
   // Las rutas /mis-* exigen usuario: van al final para no interceptar las anteriores.
   router.use('/', crearRutasMisRecursos(deps));
 

@@ -1,4 +1,5 @@
 import { crearCatalogoService } from './catalogoService.js';
+import { crearComprasService } from './comprasService.js';
 import { crearFavoritosService } from './favoritosService.js';
 import { crearUsuariosService } from './usuariosService.js';
 
@@ -12,5 +13,6 @@ export function crearServicios(dependencias) {
     usuarios: crearUsuariosService(dependencias),
     catalogo,
     favoritos: crearFavoritosService({ ...dependencias, catalogo }),
+    compras: crearComprasService(dependencias),
   };
 }
