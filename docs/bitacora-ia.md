@@ -89,3 +89,16 @@ las dificultades del proceso. Es la base de la conclusión final del video.
 - **Pendiente detectado al hacer la trazabilidad**: para ordenar eventos por
   precio (caso de uso 11) hay que decidir qué precio representa a un evento
   (¿el mínimo?). Queda para la spec de ese caso de uso.
+
+## 2026-11-18 — Spec 002: backend de punta a punta
+
+- La IA agrupó los 12 casos de uso en 8 historias priorizadas, más una
+  historia de "datos de demostración" pensada para el video (incluye un
+  evento que es hoy y una compra utilizada sin reseñar).
+- Preguntas resueltas (opciones recomendadas): el catálogo muestra solo
+  eventos próximos; para ordenar se usa el precio más bajo del evento; los
+  favoritos se incluyen aunque no estén en los 12 casos de uso.
+- **Error de la IA**: durante varias respuestas afirmó que el repo "no tiene
+  remoto" sin haberlo verificado nunca. Al pedirle un push, lo chequeó y
+  `origin` existía (vacío). Lección: verificar antes de afirmar, incluso
+  sobre datos "obvios" del entorno.
