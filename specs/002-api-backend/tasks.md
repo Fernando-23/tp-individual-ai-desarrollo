@@ -36,8 +36,8 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
 
 ## Phase 1: Setup
 
-- [ ] T001 Desde `backend/`, instalar `express@5` como dependencia y `supertest@7` como devDependency. Agregar a `backend/package.json` los scripts `start` (`node src/server.js`) y `dev` (`node --watch src/server.js`).
-- [ ] T002 En `backend/eslint.config.js`, declarar los globals de Node que usa `src/server.js` (`process` y `console`, como `readonly`) solo para `src/server.js` y `src/http/errores.js`. No agregar el paquete `globals`. Verificar que `npm run lint` pase.
+- [X] T001 Desde `backend/`, instalar `express@5` como dependencia y `supertest@7` como devDependency. Agregar a `backend/package.json` los scripts `start` (`node src/server.js`) y `dev` (`node --watch src/server.js`).
+- [X] T002 En `backend/eslint.config.js`, declarar los globals de Node que usa `src/server.js` (`process` y `console`, como `readonly`) solo para `src/server.js` y `src/http/errores.js`. No agregar el paquete `globals`. Verificar que `npm run lint` pase.
 
 ---
 
@@ -45,29 +45,29 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
 
 **⚠️ CRITICAL**: ninguna historia empieza hasta terminar esta fase.
 
-- [ ] T003 [P] Escribir `backend/tests/api/repositorio.test.js` para `RepositorioEnMemoria`:
+- [X] T003 [P] Escribir `backend/tests/api/repositorio.test.js` para `RepositorioEnMemoria`:
   - `guardar` devuelve la entidad;
   - `buscarPorId` devuelve la entidad o `undefined`;
   - `todos` respeta el orden de inserción;
   - `filtrar` funciona;
   - `crearRepositorios()` devuelve 4 repositorios independientes.
-- [ ] T004 [P] Escribir `backend/tests/domain/compra.eventoRealizado.test.js` (requisito derivado 2): `Compra.crear` con `ahora >= evento.fecha` → `ErrorConflicto`, sin registrar la compra en el tipo de entrada. Con `ahora` un minuto antes del evento, funciona.
-- [ ] T005 [P] Implementar `backend/src/repositories/repositorioEnMemoria.js` (`RepositorioEnMemoria`, `crearRepositorios`).
-- [ ] T006 Agregar a `backend/src/domain/compra.js`, en `Compra.crear`, después de validar los datos y antes de validar el cupo: `if (evento.yaSeRealizo(ahora)) throw new ErrorConflicto('El evento ya se realizó: no se pueden comprar entradas')`. Correr todos los tests de dominio.
-- [ ] T007 [P] Implementar `backend/src/services/errores.js` (`ErrorNoEncontrado extends ErrorDeDominio`) y `backend/src/services/busqueda.js`:
+- [X] T004 [P] Escribir `backend/tests/domain/compra.eventoRealizado.test.js` (requisito derivado 2): `Compra.crear` con `ahora >= evento.fecha` → `ErrorConflicto`, sin registrar la compra en el tipo de entrada. Con `ahora` un minuto antes del evento, funciona.
+- [X] T005 [P] Implementar `backend/src/repositories/repositorioEnMemoria.js` (`RepositorioEnMemoria`, `crearRepositorios`).
+- [X] T006 Agregar a `backend/src/domain/compra.js`, en `Compra.crear`, después de validar los datos y antes de validar el cupo: `if (evento.yaSeRealizo(ahora)) throw new ErrorConflicto('El evento ya se realizó: no se pueden comprar entradas')`. Correr todos los tests de dominio.
+- [X] T007 [P] Implementar `backend/src/services/errores.js` (`ErrorNoEncontrado extends ErrorDeDominio`) y `backend/src/services/busqueda.js`:
   - `normalizarTexto(texto)`: NFD, sin diacríticos, minúsculas y espacios colapsados;
   - `coincideTexto(textoBuscado, ...campos)`.
-- [ ] T008 Implementar `backend/src/http/errores.js`:
+- [X] T008 Implementar `backend/src/http/errores.js`:
   - `ErrorNoIdentificado`;
   - `rutaNoEncontrada` (404 `{ error }`);
   - `manejarErrores(err, req, res, next)`, con la tabla de research D7;
   - el JSON mal formado (`err.type === 'entity.parse.failed'`) → 400;
   - cualquier otro error → 500 genérico y `console.error`.
-- [ ] T009 Implementar `backend/src/http/usuarioActual.js` con `crearMiddlewaresUsuario(usuariosRepo)`, que devuelve:
+- [X] T009 Implementar `backend/src/http/usuarioActual.js` con `crearMiddlewaresUsuario(usuariosRepo)`, que devuelve:
   - `requerirUsuario`, que lanza `ErrorNoIdentificado` si falta el header o el usuario no existe;
   - `usuarioOpcional`, que deja `req.usuario` en `null` si falta el header.
-- [ ] T010 Implementar `backend/src/http/presentadores.js` según `contracts/api.md` y data-model.md: `usuario`, `categoria`, `organizador`, `eventoResumen`, `eventoDetalle`, `resenia`, `compraResumen`, `compraDetalle`, `mensaje` y `ventas`. Todas las fechas salen con `toISOString()`.
-- [ ] T011 Escribir `backend/tests/api/seed.test.js` (US1, escenario 2; FR-003 a FR-005; SC-005):
+- [X] T010 Implementar `backend/src/http/presentadores.js` según `contracts/api.md` y data-model.md: `usuario`, `categoria`, `organizador`, `eventoResumen`, `eventoDetalle`, `resenia`, `compraResumen`, `compraDetalle`, `mensaje` y `ventas`. Todas las fechas salen con `toISOString()`.
+- [X] T011 Escribir `backend/tests/api/seed.test.js` (US1, escenario 2; FR-003 a FR-005; SC-005):
   - **cantidades**: 4 usuarios, 6 categorías, 8 eventos, 11 compras;
   - **estados**: hay al menos una compra en cada uno de los 5;
   - **evento de hoy**: `e-standup` es hoy (`esElDiaDelEvento`) y todavía no empezó;
@@ -76,19 +76,19 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
   - **reseña pendiente**: `k-009` está UTILIZADA y Leo no reseñó Impro;
   - **determinismo**: dos cargas con el mismo `ahora` producen los mismos ids y estados;
   - **arranque nocturno**: con `ahora` a las 23:30 de Buenos Aires, `e-standup` sigue siendo hoy.
-- [ ] T012 Implementar `backend/src/seed/datosDemo.js`, con `cargarDatosDemo(repositorios, ahora)` según la tabla de data-model.md, usando operaciones del dominio y horas relativas (research D11). Exportar también `IDS_DEMO`, con los ids que usan los tests. Correr T011 en verde.
-- [ ] T013 Implementar `backend/src/app.js`, con `crearApp({ repositorios, reloj = () => new Date(), generarId = () => crypto.randomUUID() })`:
+- [X] T012 Implementar `backend/src/seed/datosDemo.js`, con `cargarDatosDemo(repositorios, ahora)` según la tabla de data-model.md, usando operaciones del dominio y horas relativas (research D11). Exportar también `IDS_DEMO`, con los ids que usan los tests. Correr T011 en verde.
+- [X] T013 Implementar `backend/src/app.js`, con `crearApp({ repositorios, reloj = () => new Date(), generarId = () => crypto.randomUUID() })`:
   - `express.json()`;
   - el router de `src/routes/index.js` montado en `/api`;
   - `GET /api/salud`;
   - `rutaNoEncontrada` y `manejarErrores`.
 
   Crear también `src/routes/index.js` con un router vacío para extender.
-- [ ] T014 Crear `backend/tests/api/helpers.js` con:
+- [X] T014 Crear `backend/tests/api/helpers.js` con:
   - `AHORA`;
   - `appDePrueba({ ahora = AHORA } = {})`: repositorios nuevos, seed cargado, reloj fijo, `generarId` con contador → `{ app, repositorios }`;
   - `como(usuarioId)`: devuelve `{ 'X-Usuario-Id': usuarioId }`.
-- [ ] T015 Escribir `backend/tests/api/errores.test.js` y verificar que pase (FR-002, FR-025):
+- [X] T015 Escribir `backend/tests/api/errores.test.js` y verificar que pase (FR-002, FR-025):
   - `GET /api/salud` → 200;
   - una ruta inexistente → 404 `{ error }`;
   - un JSON mal formado en un POST → 400 `{ error }`;
@@ -104,15 +104,15 @@ favoritos (FR-024) van con US2, porque son parte de explorar el catálogo.
 
 **Independent Test**: `GET /api/usuarios` devuelve los 4 usuarios del seed, y el servidor real arranca con los datos.
 
-- [ ] T016 [US1] Escribir en `backend/tests/api/usuarios.test.js`: `GET /api/usuarios` → 200 con 4 usuarios `{ id, nombre, apellido }`, entre ellos `u-ana` y `u-leo` (escenario 1).
-- [ ] T017 [US1] Implementar `backend/src/services/usuariosService.js` (`listar`) y `backend/src/routes/usuarios.js`, y montarlo en `src/routes/index.js`. Las rutas reciben los servicios desde `crearApp`.
-- [ ] T018 [US1] Implementar `backend/src/server.js`:
+- [X] T016 [US1] Escribir en `backend/tests/api/usuarios.test.js`: `GET /api/usuarios` → 200 con 4 usuarios `{ id, nombre, apellido }`, entre ellos `u-ana` y `u-leo` (escenario 1).
+- [X] T017 [US1] Implementar `backend/src/services/usuariosService.js` (`listar`) y `backend/src/routes/usuarios.js`, y montarlo en `src/routes/index.js`. Las rutas reciben los servicios desde `crearApp`.
+- [X] T018 [US1] Implementar `backend/src/server.js`:
   1. lee `PORT` (por defecto 3000);
   2. crea los repositorios y carga `cargarDatosDemo(repos, new Date())`;
   3. llama a `crearApp`;
   4. hace `listen` en `0.0.0.0`;
   5. imprime la URL local, las IPs de la red local (`os.networkInterfaces()`, solo IPv4 no internas) y el resumen del seed.
-- [ ] T019 [US1] Correr `npm test` y `npm run lint` en `backend/`.
+- [X] T019 [US1] Correr `npm test` y `npm run lint` en `backend/`.
 
 ---
 
