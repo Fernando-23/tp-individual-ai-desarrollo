@@ -62,3 +62,30 @@ las dificultades del proceso. Es la base de la conclusión final del video.
   puntuación entera).
 - **Corrección**: el script de Spec Kit generó un `CLAUDE.md` con una
   estructura inventada (`frontend/`, `tests/` en la raíz). Se corrigió a mano.
+
+## 2026-11-18 — Implementación 001: modelo de dominio
+
+- **Resultado**: 55 tareas completas. La capa `backend/src/domain/` tiene las
+  9 clases del diagrama con 167 tests en 16 archivos, todos en verde, y el
+  lint sin errores. No tiene dependencias de ejecución.
+- **TDD real**: en cada historia los tests se escribieron primero y se los
+  vio fallar (rojo) antes de implementar.
+- **Lo que hizo bien la IA**:
+  - siguió las tareas en orden y respetó las decisiones del plan (tabla de
+    transiciones, cupo calculado, `ahora` inyectado, estado privado);
+  - agregó un test que compara la tabla de transiciones del código con la de
+    la spec fila por fila, y otro que verifica que `index.js` expone
+    exactamente el contrato.
+- **Para mirar con ojo crítico**:
+  - casi todo pasó a verde en el primer intento. Eso es bueno, pero los tests
+    y el código los escribió el mismo modelo, así que pueden compartir el
+    mismo malentendido. Por eso la trazabilidad
+    (`specs/001-modelo-dominio/trazabilidad.md`) vincula cada test con la spec
+    escrita antes, y no con el código.
+  - `npm audit` reporta un ReDoS en `picomatch`, que entra por Vitest. La
+    "solución" automática bajaba Vitest dos versiones mayores. Se decidió no
+    aplicarla: es una herramienta de desarrollo que solo procesa nuestros
+    propios patrones de archivos, y no llega a la app.
+- **Pendiente detectado al hacer la trazabilidad**: para ordenar eventos por
+  precio (caso de uso 11) hay que decidir qué precio representa a un evento
+  (¿el mínimo?). Queda para la spec de ese caso de uso.

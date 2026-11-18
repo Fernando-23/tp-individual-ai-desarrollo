@@ -1,0 +1,17 @@
+# Dependencias y artefactos
+node_modules/
+coverage/
+dist/
+build/
+*.log
+
+# Entorno
+.env*
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/
