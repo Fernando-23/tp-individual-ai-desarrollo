@@ -53,16 +53,16 @@ automatizados. Cada historia se cierra con:
 
 ## Phase 1: Setup
 
-- [ ] T001 Crear el proyecto con `npx create-expo-app@latest mobile --template blank` (JavaScript, SDK 58) desde la raíz del repo. Borrar el `.git` que pudiera crear dentro de `mobile/`, porque el repo es la raíz.
-- [ ] T002 Desde `mobile/`, instalar Expo Router y sus pares con `npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar`, más `@react-native-community/datetimepicker`. En `mobile/package.json`, poner `"main": "expo-router/entry"`. En `mobile/app.json`:
+- [X] T001 Crear el proyecto con `npx create-expo-app@latest mobile --template blank` (JavaScript, SDK 58) desde la raíz del repo. Borrar el `.git` que pudiera crear dentro de `mobile/`, porque el repo es la raíz.
+- [X] T002 Desde `mobile/`, instalar Expo Router y sus pares con `npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar`, más `@react-native-community/datetimepicker`. En `mobile/package.json`, poner `"main": "expo-router/entry"`. En `mobile/app.json`:
   - nombre "AI Ticket It", `slug` "ai-ticket-it" y `scheme` "aiticketit";
   - `orientation` "portrait";
   - el plugin `expo-router`;
   - el color de fondo de la marca.
 
   Borrar el `App.js` de la plantilla.
-- [ ] T003 [P] Instalar `vitest@5` como devDependency. Configurar el lint con `npx expo lint`, que crea `eslint.config.js` con `eslint-config-expo`. Dejar en `mobile/package.json` los scripts `start` (`expo start`), `test` (`vitest run`) y `lint` (`expo lint`). Crear `mobile/vitest.config.js`, que solo incluya `tests/**/*.test.js` y use el entorno `node`.
-- [ ] T004 [P] Crear `mobile/.env.example` con `EXPO_PUBLIC_API_URL=http://192.168.0.15:3000/api` y un comentario sobre cómo obtener la IP. Verificar que `mobile/.env` quede ignorado por el `.gitignore` de la raíz.
+- [X] T003 [P] Instalar `vitest@5` como devDependency. Configurar el lint con `npx expo lint`, que crea `eslint.config.js` con `eslint-config-expo`. Dejar en `mobile/package.json` los scripts `start` (`expo start`), `test` (`vitest run`) y `lint` (`expo lint`). Crear `mobile/vitest.config.js`, que solo incluya `tests/**/*.test.js` y use el entorno `node`.
+- [X] T004 [P] Crear `mobile/.env.example` con `EXPO_PUBLIC_API_URL=http://192.168.0.15:3000/api` y un comentario sobre cómo obtener la IP. Verificar que `mobile/.env` quede ignorado por el `.gitignore` de la raíz.
 - [ ] T005 Crear una pantalla mínima `mobile/app/index.js` ("AI Ticket It — Entradas a un click"). Verificar que `npx expo export --platform android` compile. **Checkpoint manual**: el usuario corre `npx expo start` y abre la app en su Android con Expo Go. Si Expo Go reporta incompatibilidad de SDK, se ajusta antes de seguir (research D1).
 
 ---
