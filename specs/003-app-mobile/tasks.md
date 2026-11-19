@@ -63,7 +63,7 @@ automatizados. Cada historia se cierra con:
   Borrar el `App.js` de la plantilla.
 - [X] T003 [P] Instalar `vitest@5` como devDependency. Configurar el lint con `npx expo lint`, que crea `eslint.config.js` con `eslint-config-expo`. Dejar en `mobile/package.json` los scripts `start` (`expo start`), `test` (`vitest run`) y `lint` (`expo lint`). Crear `mobile/vitest.config.js`, que solo incluya `tests/**/*.test.js` y use el entorno `node`.
 - [X] T004 [P] Crear `mobile/.env.example` con `EXPO_PUBLIC_API_URL=http://192.168.0.15:3000/api` y un comentario sobre cómo obtener la IP. Verificar que `mobile/.env` quede ignorado por el `.gitignore` de la raíz.
-- [ ] T005 Crear una pantalla mínima `mobile/app/index.js` ("AI Ticket It — Entradas a un click"). Verificar que `npx expo export --platform android` compile. **Checkpoint manual**: el usuario corre `npx expo start` y abre la app en su Android con Expo Go. Si Expo Go reporta incompatibilidad de SDK, se ajusta antes de seguir (research D1).
+- [X] T005 Crear una pantalla mínima `mobile/app/index.js` ("AI Ticket It — Entradas a un click"). Verificar que `npx expo export --platform android` compile. **Checkpoint manual**: el usuario corre `npx expo start` y abre la app en su Android con Expo Go. Si Expo Go reporta incompatibilidad de SDK, se ajusta antes de seguir (research D1).
 
 ---
 
@@ -73,11 +73,11 @@ automatizados. Cada historia se cierra con:
 
 ### Tests de la lógica pura y del cliente (primero, en rojo)
 
-- [ ] T006 [P] Escribir `mobile/tests/logica/formato.test.js`:
+- [X] T006 [P] Escribir `mobile/tests/logica/formato.test.js`:
   - `formatearPrecio`: 0 → "Gratis", 20000 → "$ 20.000", 1500.5 → "$ 1.501" (sin centavos);
   - `formatearFecha` y `formatearFechaHora`: con una zona fija, simulada con `process.env.TZ = 'America/Argentina/Buenos_Aires'` en el test;
   - `textoDiasRestantes`: 0 → "Es hoy", 1 → "Mañana", 10 → "Faltan 10 días", null → null, negativo → null.
-- [ ] T007 [P] Escribir `mobile/tests/logica/estados.test.js`:
+- [X] T007 [P] Escribir `mobile/tests/logica/estados.test.js`:
   - los 5 estados tienen etiqueta, colores e ícono;
   - los colores, las etiquetas y los **íconos** son distintos entre sí;
   - un estado desconocido → "Desconocido" en gris.
@@ -87,17 +87,17 @@ automatizados. Cada historia se cierra con:
   - mismo color → 1;
   - **todos los pares texto/fondo del tema y de los chips de estado** → ≥ 7;
   - íconos y bordes de controles sobre su fondo → ≥ 3 (SC-006).
-- [ ] T008 [P] Escribir `mobile/tests/logica/acciones.test.js`, con la tabla de data-model.md, fila por fila:
+- [X] T008 [P] Escribir `mobile/tests/logica/acciones.test.js`, con la tabla de data-model.md, fila por fila:
   - comprador con una compra PENDIENTE de un evento futuro → `cancelar` y `chatear`;
   - organizador con una PENDIENTE → `confirmar`, `rechazar` y `chatear`;
   - organizador con una CONFIRMADA y `diasRestantes` 0 → `registrarIngreso`; con 10 → no;
   - comprador con una UTILIZADA y `yaResenio: false` → `reseniar`; con `true` → no;
   - un tercero → ninguna;
   - el organizador que también es comprador → la unión de las acciones de los dos roles.
-- [ ] T009 [P] Escribir `mobile/tests/logica/validarEvento.test.js`:
+- [X] T009 [P] Escribir `mobile/tests/logica/validarEvento.test.js`:
   - un formulario válido → `valido: true`, con precios y cupos convertidos a número;
   - cada campo de texto vacío, sin categoría, fecha pasada, sin tipos, precio "-1" o "abc", cupo "0" o "1.5", y tipos repetidos ("VIP" y " vip ") → `errores` con el campo correspondiente.
-- [ ] T010 [P] Escribir `mobile/tests/api/cliente.test.js`, con `fetch` simulado:
+- [X] T010 [P] Escribir `mobile/tests/api/cliente.test.js`, con `fetch` simulado:
   - arma la URL con `baseUrl`;
   - agrega `X-Usuario-Id` solo si hay usuario;
   - en un POST manda el JSON y el `Content-Type`;
@@ -110,37 +110,37 @@ automatizados. Cada historia se cierra con:
 
 ### Implementación
 
-- [ ] T011 [P] Implementar `mobile/src/logica/formato.js` (research D6).
-- [ ] T012 [P] Implementar `mobile/src/logica/contraste.js` (fórmula de luminancia relativa de WCAG) y `mobile/src/logica/estados.js`. Sus colores salen de `mobile/src/tema.js`, así que crear también:
+- [X] T011 [P] Implementar `mobile/src/logica/formato.js` (research D6).
+- [X] T012 [P] Implementar `mobile/src/logica/contraste.js` (fórmula de luminancia relativa de WCAG) y `mobile/src/logica/estados.js`. Sus colores salen de `mobile/src/tema.js`, así que crear también:
   - `tema.js`, con la paleta `claro` (marca, texto, texto secundario, fondo, superficie, borde, primario y su texto, peligro y su texto, foco), los 5 estados (fondo, texto, borde e ícono) y espaciados, radios y tamaños mínimos táctiles;
   - una lista `PARES_DE_CONTRASTE` que el test recorre;
   - `useTema()`, que hoy devuelve `claro`.
 
   Ajustar los tonos hasta que el test de T007 pase (research D11b).
-- [ ] T013 [P] Implementar `mobile/src/logica/acciones.js`.
-- [ ] T014 [P] Implementar `mobile/src/logica/validarEvento.js`.
-- [ ] T015 [P] Implementar `mobile/src/api/cliente.js` (`ErrorApi` y `crearCliente`). Correr `npm test`: T006 a T010 en verde.
-- [ ] T016 Implementar los módulos de endpoints, uno por función, según `specs/002-api-backend/contracts/api.md`:
+- [X] T013 [P] Implementar `mobile/src/logica/acciones.js`.
+- [X] T014 [P] Implementar `mobile/src/logica/validarEvento.js`.
+- [X] T015 [P] Implementar `mobile/src/api/cliente.js` (`ErrorApi` y `crearCliente`). Correr `npm test`: T006 a T010 en verde.
+- [X] T016 Implementar los módulos de endpoints, uno por función, según `specs/002-api-backend/contracts/api.md`:
   - `mobile/src/api/usuarios.js`;
   - `eventos.js` (`listarCategorias`, `buscarEventos`, `obtenerEvento`, `publicarEvento`, `obtenerVentas`, `reseniar`, `misEventos`);
   - `compras.js` (`comprar`, `misCompras`, `obtenerCompra`, `accionCompra`, `mensajes`, `enviarMensaje`);
   - `favoritos.js`.
 
   Todos reciben el cliente.
-- [ ] T017 Implementar `mobile/src/contexto/UsuarioContext.js`: provider con `usuario`, `elegir(usuario)` y `salir()`. Crea un único cliente con `baseUrl` de `process.env.EXPO_PUBLIC_API_URL`; `obtenerUsuarioId` lee el usuario actual y `alNoIdentificado` llama a `salir()`. Exponer `useUsuario()` y `useApi()`, que devuelve los módulos de endpoints ya armados con el cliente.
-- [ ] T018 [P] Implementar `mobile/src/hooks/useRecurso.js`:
+- [X] T017 Implementar `mobile/src/contexto/UsuarioContext.js`: provider con `usuario`, `elegir(usuario)` y `salir()`. Crea un único cliente con `baseUrl` de `process.env.EXPO_PUBLIC_API_URL`; `obtenerUsuarioId` lee el usuario actual y `alNoIdentificado` llama a `salir()`. Exponer `useUsuario()` y `useApi()`, que devuelve los módulos de endpoints ya armados con el cliente.
+- [X] T018 [P] Implementar `mobile/src/hooks/useRecurso.js`:
   - devuelve `{ datos, cargando, error, recargar }`;
   - carga al ganar el foco, con `useFocusEffect` de `expo-router`;
   - ignora las respuestas de pedidos viejos.
 
   Implementar también `mobile/src/hooks/usePolling.js`, que repite una función cada N ms solo mientras la pantalla tiene el foco.
-- [ ] T019 [P] Implementar los componentes base en `mobile/src/componentes/`:
+- [X] T019 [P] Implementar los componentes base en `mobile/src/componentes/`:
   - `EstadoCarga.js` (cargando, error + Reintentar, vacío + ícono y mensaje);
   - `Boton.js` (variantes primario, secundario y peligro; prop `cargando`);
   - `EtiquetaEstado.js`;
   - `Estrellas.js` (solo lectura y editable);
   - `Pantalla.js` (contenedor con área segura y fondo).
-- [ ] T020 Implementar `mobile/app/_layout.js`: un `Stack` dentro de `UsuarioProvider`. Si no hay usuario, redirige a `/elegir-usuario`. Las rutas `compra/[id]/reseniar` y `publicar` se presentan como modal. Borrar la `mobile/app/index.js` de prueba de T005, porque la reemplaza `(tabs)/index.js` en US2. Verificar que compile con `npx expo export --platform android`.
+- [X] T020 Implementar `mobile/app/_layout.js`: un `Stack` dentro de `UsuarioProvider`. Si no hay usuario, redirige a `/elegir-usuario`. Las rutas `compra/[id]/reseniar` y `publicar` se presentan como modal. Borrar la `mobile/app/index.js` de prueba de T005, porque la reemplaza `(tabs)/index.js` en US2. Verificar que compile con `npx expo export --platform android`.
 
 **Checkpoint**: la base está lista, con `npm test` y `npm run lint` en verde en `mobile/`.
 
@@ -150,12 +150,12 @@ automatizados. Cada historia se cierra con:
 
 **Independent Test**: se abre la app, se elige a Leo, se ve "Leo Sosa" arriba, se cambia a Ana y se ve "Ana Paz".
 
-- [ ] T021 [US1] Implementar `mobile/app/elegir-usuario.js`:
+- [X] T021 [US1] Implementar `mobile/app/elegir-usuario.js`:
   - el logo y el lema;
   - la lista de usuarios (`GET /usuarios`), cada uno con un círculo de iniciales, nombre y apellido;
   - los estados de `EstadoCarga`; sin conexión, muestra un mensaje que sugiere revisar la IP en `.env`;
   - al tocar un usuario, `elegir(u)` y `router.replace('/')`.
-- [ ] T022 [US1] Implementar `mobile/app/(tabs)/_layout.js`:
+- [X] T022 [US1] Implementar `mobile/app/(tabs)/_layout.js`:
   - las pestañas Explorar, Mis compras, Mis eventos y Favoritos, con íconos de `@expo/vector-icons` y el verde de la marca como color activo;
   - en el encabezado, el nombre del usuario actual y un botón "Cambiar" que lleva a `/elegir-usuario`.
 
