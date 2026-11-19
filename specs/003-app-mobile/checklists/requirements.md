@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain — queda 1: cómo se actualiza el chat (Historia 7, escenario 4)
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -36,4 +36,6 @@
   reglas de fechas por su cuenta: el dato ya llega calculado en las compras.
 - La spec no nombra React Native ni Expo. Eso va en el plan (lo fija la
   constitución, Principio VI).
-- Pendiente: responder Q1 antes de `/speckit-plan`.
+- Iteración 2 (2026-11-19): resuelta Q1 (chat que se actualiza solo). Se
+  registró además que el dispositivo es Android con Expo Go. Todos los ítems
+  pasan.

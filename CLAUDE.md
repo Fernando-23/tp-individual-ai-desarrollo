@@ -1,10 +1,12 @@
 ﻿# tp-individual-ai-desarrollo Development Guidelines
 
-Auto-generated from all feature plans. Last updated: 2026-11-18
+Auto-generated from all feature plans. Last updated: 2026-11-19
 
 ## Active Technologies
 - JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + Express 5.x (ejecución). De desarrollo: Supertest 7.x, más Vitest 5.x y ESLint 10.x, que ya estaban (002-api-backend)
 - en memoria (`Map` por agregado), con seed al arrancar. Se pierde al reiniciar (requisito del enunciado) (002-api-backend)
+- JavaScript (ES2024) sobre React Native 0.88 / React 19, con Expo SDK 58 + `expo`, `expo-router` (y sus pares, instalados con `npx expo install`), `@react-native-community/datetimepicker` y `@expo/vector-icons` (incluido en Expo). De desarrollo: Vitest 5.x y `eslint-config-expo` (003-app-mobile)
+- ninguno. El usuario actual vive en memoria (`UsuarioContext`); los datos vienen de la API (003-app-mobile)
 
 - JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + ninguna de ejecución. De desarrollo: Vitest 5.x, ESLint 10.x y `@eslint/js` (001-modelo-dominio)
 
@@ -33,6 +35,7 @@ Desde `backend/`: npm start (o npm run dev); npm test; npm run lint
 JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12): Follow standard conventions
 
 ## Recent Changes
+- 003-app-mobile: Added JavaScript (ES2024) sobre React Native 0.88 / React 19, con Expo SDK 58 + `expo`, `expo-router` (y sus pares, instalados con `npx expo install`), `@react-native-community/datetimepicker` y `@expo/vector-icons` (incluido en Expo). De desarrollo: Vitest 5.x y `eslint-config-expo`
 - 002-api-backend: Added JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + Express 5.x (ejecución). De desarrollo: Supertest 7.x, más Vitest 5.x y ESLint 10.x, que ya estaban
 
 - 001-modelo-dominio: Added JavaScript (ES2024, ES Modules) sobre Node.js 24 (mínimo 22.12) + ninguna de ejecución. De desarrollo: Vitest 5.x, ESLint 10.x y `@eslint/js`

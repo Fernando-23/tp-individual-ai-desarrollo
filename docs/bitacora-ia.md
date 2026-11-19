@@ -131,3 +131,15 @@ las dificultades del proceso. Es la base de la conclusión final del video.
   publicar eventos (US8). Se reescribió para que US2 fuera independiente.
 - Las historias de cancelación (US5) pasaron sin código nuevo: ya las cubría
   la ruta de acciones de US4, como estaba previsto en las tareas.
+
+## 2026-11-19 — Spec y plan 003: app mobile
+
+- Decisiones del usuario: el chat se actualiza solo cada pocos segundos
+  (opción A); la app corre en su celular Android con Expo Go.
+- Antes de elegir la versión, la IA consultó npm: el SDK 58 de Expo es el
+  último (salió el 29/09/2026). Lo eligió porque la Expo Go de la Play Store
+  solo abre el SDK más reciente. La primera tarea de implementación verifica
+  esto en el celular real antes de escribir pantallas.
+- El plan deja el backend sin tocar. Las mejoras posibles (`acciones` y
+  `yaResenie` calculados por el servidor) quedaron anotadas para una feature
+  futura del backend, como anticipó el usuario.

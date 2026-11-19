@@ -30,6 +30,13 @@ servicio (constitución, Principio VI).
 Es probable que al construir la app aparezcan ajustes del servicio. Se
 registran y se resuelven en features propias, sin mezclarlos acá.
 
+## Clarifications
+
+### Session 2026-11-19
+
+- Q: ¿El chat se actualiza solo o a mano? → A: Solo, cada pocos segundos mientras está abierto (Historia 7, FR-014).
+- Q: ¿En qué dispositivo se ejecuta? → A: En un celular Android con Expo Go (afecta el plan, no los requisitos).
+
 ## User Scenarios & Testing *(mandatory)*
 
 Cada historia se verifica usando la app en el celular contra el servicio
@@ -237,10 +244,8 @@ Como Ana, se lee y se responde.
 3. **Given** un mensaje vacío, **When** se intenta enviar, **Then** la app no
    lo permite.
 4. **Given** un chat abierto, **When** la otra parte escribe, **Then** el
-   mensaje nuevo se ve según la política de actualización del chat
-   [NEEDS CLARIFICATION: ¿el chat se actualiza solo cada pocos segundos
-   mientras está abierto, o solo cuando se actualiza a mano (deslizar hacia
-   abajo) o se vuelve a entrar?].
+   mensaje nuevo aparece solo en pocos segundos, sin tocar nada. Mientras el
+   chat no está en pantalla no se consulta nada.
 
 ---
 
@@ -377,7 +382,8 @@ aparece en el catálogo y en sus eventos.
 
   El servicio es quien decide en última instancia (FR-003).
 - **FR-014**: La app DEBE ofrecer el chat de la compra al comprador y al
-  organizador.
+  organizador. Mientras el chat está en pantalla, DEBE actualizarse solo
+  cada pocos segundos (5 como máximo).
 
 **Organizador**
 
