@@ -165,6 +165,40 @@ constitución (Flujo de Trabajo con IA).
   Native Paper, NativeBase). Agrega peso y un estilo genérico. Con unos
   pocos componentes propios alcanza.
 
+## D11b. Accesibilidad AAA y tema intercambiable (pedido del usuario, 2026-11-19)
+
+- **Decision**:
+  - **Contraste verificado por test**: `src/logica/contraste.js` calcula el
+    contraste según la fórmula de WCAG. Un test recorre todos los pares
+    texto/fondo declarados en el tema y exige ≥ 7:1 (≥ 3:1 para íconos y
+    bordes de controles).
+  - **El verde de la marca** (claro) se usa como **fondo** con texto oscuro,
+    nunca como color de texto sobre blanco. Los botones primarios usan un
+    verde oscuro con texto blanco.
+  - **Estados**: chip de fondo claro con texto oscuro, un **ícono distinto
+    por estado** y tonos de una paleta segura para daltonismo (inspirada en
+    Okabe–Ito: ámbar, verde azulado, azul, gris y violeta).
+  - **Áreas táctiles**: `Boton` y los controles tocables tienen
+    `minHeight: 48` y un `hitSlop` en los íconos.
+  - **Lectores de pantalla**: `accessibilityRole`, `accessibilityLabel` y
+    `accessibilityState` (`disabled` / `busy`) en los controles. Las
+    etiquetas de estado se leen como "Estado: Confirmada".
+  - **Tamaño de texto**: no se desactiva `allowFontScaling` y no hay alturas
+    fijas en contenedores de texto.
+  - **Tema**: los colores se leen con un hook `useTema()` que devuelve la
+    paleta actual. Hoy hay solo `claro`, pero un modo oscuro se agrega
+    definiendo `oscuro` y eligiendo con `useColorScheme()`. Queda como
+    tarea opcional después del MVP.
+- **Rationale**: lo pidió el usuario (UX + AAA), y la constitución ya exigía
+  "color y texto" para los estados. Tener el contraste verificado por un test
+  hace que el criterio sea medible (SC-006) y no una impresión.
+- **Alternatives considered**:
+  - Un modo daltónico aparte: si la paleta base ya distingue los estados
+    con ícono y texto y usa tonos seguros, un segundo modo no aporta y suma
+    trabajo.
+  - Modo oscuro en el MVP: la entrega es el domingo, así que va después,
+    solo si sobra tiempo.
+
 ## D12. Configuración de red
 
 - **Decision**: `mobile/.env` con

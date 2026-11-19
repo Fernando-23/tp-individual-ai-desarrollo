@@ -38,7 +38,16 @@ automatizados. Cada historia se cierra con:
 - **Estados de compra**: siempre se muestran con `EtiquetaEstado`, que usa
   color, ícono y texto de `src/logica/estados.js` (FR-004).
 - **Textos**: en español rioplatense. Los colores y espaciados salen de
-  `src/tema.js`.
+  `src/tema.js`, a través de `useTema()`. No hay colores escritos a mano en
+  las pantallas.
+- **Accesibilidad (FR-019, research D11b)**: en todo componente o pantalla,
+  - los controles tocables miden al menos 48 × 48 y tienen
+    `accessibilityRole` y un `accessibilityLabel` que dice qué hacen;
+  - los estados de carga y deshabilitado se informan con
+    `accessibilityState`;
+  - las imágenes de eventos tienen `accessibilityLabel` con el nombre del
+    evento;
+  - no se desactiva el escalado de fuente.
 
 ---
 
@@ -69,10 +78,15 @@ automatizados. Cada historia se cierra con:
   - `formatearFecha` y `formatearFechaHora`: con una zona fija, simulada con `process.env.TZ = 'America/Argentina/Buenos_Aires'` en el test;
   - `textoDiasRestantes`: 0 → "Es hoy", 1 → "Mañana", 10 → "Faltan 10 días", null → null, negativo → null.
 - [ ] T007 [P] Escribir `mobile/tests/logica/estados.test.js`:
-  - los 5 estados tienen etiqueta, color e ícono;
-  - los colores son distintos entre sí;
-  - las etiquetas son distintas entre sí;
+  - los 5 estados tienen etiqueta, colores e ícono;
+  - los colores, las etiquetas y los **íconos** son distintos entre sí;
   - un estado desconocido → "Desconocido" en gris.
+
+  En el mismo archivo, probar `contraste(a, b)` de `src/logica/contraste.js`:
+  - blanco/negro → 21;
+  - mismo color → 1;
+  - **todos los pares texto/fondo del tema y de los chips de estado** → ≥ 7;
+  - íconos y bordes de controles sobre su fondo → ≥ 3 (SC-006).
 - [ ] T008 [P] Escribir `mobile/tests/logica/acciones.test.js`, con la tabla de data-model.md, fila por fila:
   - comprador con una compra PENDIENTE de un evento futuro → `cancelar` y `chatear`;
   - organizador con una PENDIENTE → `confirmar`, `rechazar` y `chatear`;
@@ -97,10 +111,12 @@ automatizados. Cada historia se cierra con:
 ### Implementación
 
 - [ ] T011 [P] Implementar `mobile/src/logica/formato.js` (research D6).
-- [ ] T012 [P] Implementar `mobile/src/logica/estados.js`. Sus colores salen de `mobile/src/tema.js`, así que crear también `tema.js` con:
-  - el verde de la marca, texto, fondo, superficie, bordes y error;
-  - los 5 colores de estado;
-  - espaciados y radios.
+- [ ] T012 [P] Implementar `mobile/src/logica/contraste.js` (fórmula de luminancia relativa de WCAG) y `mobile/src/logica/estados.js`. Sus colores salen de `mobile/src/tema.js`, así que crear también:
+  - `tema.js`, con la paleta `claro` (marca, texto, texto secundario, fondo, superficie, borde, primario y su texto, peligro y su texto, foco), los 5 estados (fondo, texto, borde e ícono) y espaciados, radios y tamaños mínimos táctiles;
+  - una lista `PARES_DE_CONTRASTE` que el test recorre;
+  - `useTema()`, que hoy devuelve `claro`.
+
+  Ajustar los tonos hasta que el test de T007 pase (research D11b).
 - [ ] T013 [P] Implementar `mobile/src/logica/acciones.js`.
 - [ ] T014 [P] Implementar `mobile/src/logica/validarEvento.js`.
 - [ ] T015 [P] Implementar `mobile/src/api/cliente.js` (`ErrorApi` y `crearCliente`). Correr `npm test`: T006 a T010 en verde.
@@ -272,6 +288,10 @@ automatizados. Cada historia se cierra con:
 - [ ] T041 [P] Actualizar `CLAUDE.md` (sección manual: estructura de `mobile/`, comandos y la regla de que todo `fetch` va en `src/api/`).
 - [ ] T042 Correr `npm test` y `npm run lint` en `backend/` y en `mobile/`, y `npx expo export --platform android` en `mobile/`.
 - [ ] T043 Agregar a `docs/bitacora-ia.md` la entrada de la app: qué resolvió bien la IA, qué hubo que corregir en el celular real, qué pidió el backend y qué tal anduvo Expo Go.
+- [ ] T044 **(Opcional, después del MVP y solo si hay tiempo antes del domingo)** Implementar el modo oscuro:
+  - agregar la paleta `oscuro` en `mobile/src/tema.js`, con sus pares en `PARES_DE_CONTRASTE` (el test de T007 la cubre);
+  - hacer que `useTema()` elija con `useColorScheme()` y que `app.json` use `userInterfaceStyle: "automatic"`;
+  - verificar en el celular con el modo oscuro del sistema activado.
 
 ---
 

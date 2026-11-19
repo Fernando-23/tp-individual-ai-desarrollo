@@ -36,6 +36,7 @@ registran y se resuelven en features propias, sin mezclarlos acá.
 
 - Q: ¿El chat se actualiza solo o a mano? → A: Solo, cada pocos segundos mientras está abierto (Historia 7, FR-014).
 - Q: ¿En qué dispositivo se ejecuta? → A: En un celular Android con Expo Go (afecta el plan, no los requisitos).
+- Q: ¿Qué nivel de experiencia de usuario y accesibilidad? → A: Cuidar la UX y apuntar a WCAG **AAA** sin perder simplicidad (FR-019). El modo oscuro y el daltónico son ideas para después del MVP, solo si hay tiempo antes de la entrega (domingo 22/11).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -401,6 +402,24 @@ aparece en el catálogo y en sus eventos.
   entrada, validando en la app lo evidente (campos vacíos, números
   inválidos, fecha pasada) antes de enviar.
 
+**Accesibilidad y experiencia de uso**
+
+- **FR-019**: La app DEBE apuntar a WCAG 2.2 nivel **AAA** en lo que aplica a
+  una app mobile. Esto implica:
+  - **contraste**: el texto tiene un contraste mínimo de 7:1 con su fondo,
+    y los íconos y bordes de controles, 3:1;
+  - **áreas táctiles**: todo control tocable mide al menos 48 × 48;
+  - **lectores de pantalla**: todo control tiene un nombre y un rol
+    accesibles (por ejemplo, "Comprar 2 entradas VIP, total $ 40.000"), y
+    las imágenes informativas tienen una descripción;
+  - **tamaño de texto**: el texto respeta el tamaño de fuente del sistema
+    sin que se corte el contenido esencial;
+  - **color**: la información nunca depende solo del color. Los estados
+    llevan ícono y texto, y la paleta se distingue con los tipos comunes de
+    daltonismo;
+  - **mensajes**: los errores dicen qué pasó y cómo seguir, en lenguaje
+    simple.
+
 ### Key Entities *(include if feature involves data)*
 
 La app no tiene datos propios. Muestra las vistas del contrato de la
@@ -421,6 +440,8 @@ CompraDetalle, Mensaje, Reseña y Ventas. Lo único que recuerda es el
   vistazo, sin abrirla. Los 5 estados tienen un color y un texto distintos.
 - **SC-004**: El 100% de las pantallas con datos muestran cargando, error
   con reintento y vacío.
+- **SC-006**: El 100% de los pares texto/fondo de la paleta cumplen el
+  contraste AAA (7:1), y se verifica automáticamente.
 - **SC-005**: El flujo elegido para el video (por ejemplo, comprar →
   confirmar → ingresar → reseñar) se recorre completo en menos de 3 minutos.
 
@@ -430,6 +451,9 @@ CompraDetalle, Mensaje, Reseña y Ventas. Lo único que recuerda es el
   se configura una vez por red.
 - La app se usa en orientación vertical, en un celular de tamaño estándar.
 - Un solo idioma: español rioplatense.
+- Modo oscuro y modo daltónico: quedan fuera del MVP. La paleta base ya es
+  apta para daltonismo y los colores se centralizan en un tema, así que
+  agregar un modo oscuro después es definir otra paleta.
 - La identidad visual sigue la portada del enunciado: el verde del logo "AI
   Ticket It" y el lema "Entradas a un click". La app no copia ninguna marca
   real de ticketeras.

@@ -143,3 +143,15 @@ las dificultades del proceso. Es la base de la conclusión final del video.
 - El plan deja el backend sin tocar. Las mejoras posibles (`acciones` y
   `yaResenie` calculados por el servidor) quedaron anotadas para una feature
   futura del backend, como anticipó el usuario.
+
+## 2026-11-19 — Accesibilidad AAA en la app (pedido del usuario)
+
+- Antes de implementar, el usuario pidió cuidar la UX y la accesibilidad
+  (AAA), con la idea de agregar modos daltónico y oscuro después del MVP si
+  hay tiempo, porque la entrega es el domingo.
+- Decisión: la AAA entra en el MVP (contraste ≥ 7:1 verificado por un test,
+  áreas táctiles de 48, etiquetas para lectores de pantalla, texto escalable).
+  El "modo daltónico" se reemplazó por una paleta base que ya es segura para
+  daltonismo, con ícono y texto en cada estado: así no hace falta un modo
+  aparte. El modo oscuro quedó como tarea opcional (T044), facilitada porque
+  todos los colores salen de un tema.
