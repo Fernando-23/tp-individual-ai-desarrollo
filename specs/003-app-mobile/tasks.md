@@ -167,14 +167,14 @@ automatizados. Cada historia se cierra con:
 
 **Independent Test**: buscar "jazz", filtrar por Teatro, ordenar por precio y abrir Noche de Jazz para ver tipos, puntaje y reseñas.
 
-- [ ] T023 [P] [US2] Implementar `mobile/src/componentes/TarjetaEvento.js`: imagen, nombre (hasta 2 líneas), fecha (`formatearFecha`), categoría, "desde $" (`formatearPrecio`), organizador con ★ y su puntaje (o "Sin reseñas"), y una cinta "Agotado" si `!hayEntradas`.
-- [ ] T024 [US2] Implementar `mobile/app/(tabs)/index.js` (Explorar):
+- [X] T023 [P] [US2] Implementar `mobile/src/componentes/TarjetaEvento.js`: imagen, nombre (hasta 2 líneas), fecha (`formatearFecha`), categoría, "desde $" (`formatearPrecio`), organizador con ★ y su puntaje (o "Sin reseñas"), y una cinta "Agotado" si `!hayEntradas`.
+- [X] T024 [US2] Implementar `mobile/app/(tabs)/index.js` (Explorar):
   - buscador con espera de 400 ms antes de buscar;
   - chips horizontales de categorías ("Todas" más las del servidor);
   - selector de orden (Fecha, Precio o Puntaje), con el activo resaltado;
   - `FlatList` de `TarjetaEvento`; al tocar una, va a `/evento/[id]`;
   - vacío: "No hay eventos que coincidan".
-- [ ] T025 [US2] Implementar la parte de información de `mobile/app/evento/[id].js`:
+- [X] T025 [US2] Implementar la parte de información de `mobile/app/evento/[id].js`:
   - imagen grande, nombre, fecha y hora, categoría y descripción;
   - la lista de tipos de entrada con precio y disponibles;
   - el bloque del organizador, con `Estrellas` de su puntaje, la cantidad de reseñas y la lista de `reseniasDelOrganizador` (evento, comprador, estrellas y detalle).
@@ -187,8 +187,8 @@ automatizados. Cada historia se cierra con:
 
 **Independent Test**: como Sofía, comprar 2 VIP de Rock en el Parque y ver el aviso de compra pendiente.
 
-- [ ] T026 [P] [US3] Implementar `mobile/src/componentes/SelectorCantidad.js`, con botones − y + y un número. Respeta mínimo 1 y máximo igual a los disponibles; en el máximo, deshabilita el + y muestra "Quedan N".
-- [ ] T027 [US3] Agregar la compra en `mobile/app/evento/[id].js`:
+- [X] T026 [P] [US3] Implementar `mobile/src/componentes/SelectorCantidad.js`, con botones − y + y un número. Respeta mínimo 1 y máximo igual a los disponibles; en el máximo, deshabilita el + y muestra "Quedan N".
+- [X] T027 [US3] Agregar la compra en `mobile/app/evento/[id].js`:
   - los tipos de entrada se pueden seleccionar; los agotados se muestran deshabilitados con "Agotado";
   - al elegir uno aparecen el `SelectorCantidad`, el total (precio × cantidad, solo informativo) y el botón "Comprar";
   - si se compra: un aviso "¡Listo! Tu compra quedó pendiente hasta que el organizador confirme el pago", con un botón "Ver compra" que lleva a `/compra/[id]`, y la recarga del evento;
@@ -202,9 +202,9 @@ automatizados. Cada historia se cierra con:
 
 **Independent Test**: como Leo, ver sus 6 compras con su estado y, en la de Jazz, "Faltan 10 días". Abrirla y ver el historial.
 
-- [ ] T028 [P] [US4] Implementar `mobile/src/componentes/TarjetaCompra.js`: el evento, "Tipo × cantidad", el total, `EtiquetaEstado` y `textoDiasRestantes`, este último destacado si la compra está confirmada.
-- [ ] T029 [US4] Implementar `mobile/app/(tabs)/compras.js`: la lista de `misCompras` con `TarjetaCompra`. Al tocar una, va a `/compra/[id]`. Vacío: "Todavía no tenés compras".
-- [ ] T030 [US4] Implementar `mobile/app/compra/[id]/index.js`:
+- [X] T028 [P] [US4] Implementar `mobile/src/componentes/TarjetaCompra.js`: el evento, "Tipo × cantidad", el total, `EtiquetaEstado` y `textoDiasRestantes`, este último destacado si la compra está confirmada.
+- [X] T029 [US4] Implementar `mobile/app/(tabs)/compras.js`: la lista de `misCompras` con `TarjetaCompra`. Al tocar una, va a `/compra/[id]`. Vacío: "Todavía no tenés compras".
+- [X] T030 [US4] Implementar `mobile/app/compra/[id]/index.js`:
   - un resumen (evento, tipo, cantidad, total, comprador y organizador), la `EtiquetaEstado` grande y los días restantes;
   - el **historial** como línea de tiempo (estado, quién y `formatearFechaHora`);
   - una zona de acciones según `accionesDisponibles(compra, usuario.id, new Date(), { yaResenio })`.
@@ -217,15 +217,15 @@ automatizados. Cada historia se cierra con:
 
 **Independent Test**: como Ana, abrir las ventas de Noche de Jazz y confirmar la compra de Sofía. Como Bruno, registrar el ingreso en Risas a Medianoche.
 
-- [ ] T031 [US5] Implementar `mobile/app/(tabs)/eventos.js` (Mis eventos):
+- [X] T031 [US5] Implementar `mobile/app/(tabs)/eventos.js` (Mis eventos):
   - las secciones "Próximos" y "Ya realizados" (estos atenuados), con `TarjetaEvento`; al tocar uno, va a `/ventas/[eventoId]`;
   - un botón flotante "Publicar" que lleva a `/publicar`. Hasta US10, la pantalla de publicar es un placeholder;
   - vacío: "Todavía no organizaste eventos".
-- [ ] T032 [US5] Implementar `mobile/app/ventas/[eventoId].js`:
+- [X] T032 [US5] Implementar `mobile/app/ventas/[eventoId].js`:
   - por tipo de entrada, el nombre, una barra ocupadas/cupo y el texto "N disponibles de M";
   - una fila de chips con la cantidad por estado (con los colores de los estados);
   - la lista de compras (comprador, tipo × cantidad, total y `EtiquetaEstado`); al tocar una, va a `/compra/[id]`.
-- [ ] T033 [US5] Conectar en `mobile/app/compra/[id]/index.js` los botones "Confirmar pago", "Rechazar" (con un `Alert` de confirmación) y "Registrar ingreso", con `accionCompra(id, accion)`. Si sale bien, se recarga la compra; si falla, se muestra el mensaje del servidor. Verificar que compile. **Checkpoint manual US5**.
+- [X] T033 [US5] Conectar en `mobile/app/compra/[id]/index.js` los botones "Confirmar pago", "Rechazar" (con un `Alert` de confirmación) y "Registrar ingreso", con `accionCompra(id, accion)`. Si sale bien, se recarga la compra; si falla, se muestra el mensaje del servidor. Verificar que compile. **Checkpoint manual US5**.
 
 **Checkpoint MVP**: el flujo de la demo (comprar → confirmar → ver confirmada) funciona en el celular.
 
@@ -233,7 +233,7 @@ automatizados. Cada historia se cierra con:
 
 ## Phase 8: User Story 6 - Cancelar una compra (Priority: P2)
 
-- [ ] T034 [US6] Conectar en `mobile/app/compra/[id]/index.js` el botón "Cancelar compra":
+- [X] T034 [US6] Conectar en `mobile/app/compra/[id]/index.js` el botón "Cancelar compra":
   - un `Alert` de confirmación: "Se te reembolsará el total" si la compra está confirmada, o "La compra quedará cancelada" si está pendiente;
   - después, `accionCompra(id, 'cancelar')` y la recarga.
 
