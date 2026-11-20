@@ -187,7 +187,12 @@ las dificultades del proceso. Es la base de la conclusión final del video.
     detalle técnico) y se sacó.
   - *Franja blanca sobre el teclado*: el desplazamiento era un número fijo
     (100). Ahora se mide en pantalla con `measureInWindow`.
+  - *Error introducido por la propia corrección anterior*: la IA llamó a
+    `measureInWindow` sobre el `ref` de `KeyboardAvoidingView`, que apunta a un
+    componente de React y no a una vista nativa ("undefined is not a
+    function"). Compilaba y pasaba el lint; lo encontró el usuario al abrir el
+    chat. Se arregló midiendo una `View` común que lo envuelve.
 - **Reflexión**: el código compiló y los tests pasaron casi siempre al primer
-  intento, pero **4 de los 6 problemas solo aparecieron en el celular real o
+  intento, pero **5 de los 7 problemas solo aparecieron en el celular real o
   en la mirada del usuario**. Ningún test automático los habría detectado.
   Para la UI, la verificación humana en el dispositivo no se pudo reemplazar.

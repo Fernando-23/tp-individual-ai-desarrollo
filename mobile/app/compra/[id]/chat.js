@@ -73,84 +73,82 @@ export default function Chat() {
   }
 
   return (
-    <KeyboardAvoidingView
-      ref={contenedor}
-      onLayout={medir}
-      style={[estilos.pantalla, { backgroundColor: tema.fondo }]}
-      behavior="padding"
-      keyboardVerticalOffset={desplazamiento}
-    >
-      {evento ? (
-        <View style={[estilos.contexto, { borderBottomColor: tema.divisor }]}>
-          <Ionicons name="ticket-outline" size={18} color={tema.textoSecundario} />
-          <Text style={[tipografia.chico, estilos.contextoTexto, { color: tema.textoSecundario }]} numberOfLines={1}>
-            {evento}
-          </Text>
-        </View>
-      ) : null}
+    // Se mide esta View común: el ref de KeyboardAvoidingView apunta al
+    // componente de React, que no tiene measureInWindow (error en el celular).
+    <View ref={contenedor} onLayout={medir} style={[estilos.pantalla, { backgroundColor: tema.fondo }]}>
+      <KeyboardAvoidingView style={estilos.pantalla} behavior="padding" keyboardVerticalOffset={desplazamiento}>
+        {evento ? (
+          <View style={[estilos.contexto, { borderBottomColor: tema.divisor }]}>
+            <Ionicons name="ticket-outline" size={18} color={tema.textoSecundario} />
+            <Text style={[tipografia.chico, estilos.contextoTexto, { color: tema.textoSecundario }]} numberOfLines={1}>
+              {evento}
+            </Text>
+          </View>
+        ) : null}
 
-      <ZonaLista>
-        <EstadoCarga
-          cargando={cargando}
-          error={error}
-          hayDatos={!!mensajes}
-          vacio={mensajes?.length === 0}
-          mensajeVacio="Todavía no hay mensajes. Escribí una consulta sobre el evento, el acceso o un cambio de fecha."
-          iconoVacio="chatbubbles-outline"
-          alReintentar={recargar}
-        >
-          <FlatList
-            ref={lista}
-            data={mensajes ?? []}
-            keyExtractor={(m, i) => `${m.enviado}-${i}`}
-            style={estilos.flex}
-            contentContainerStyle={estilos.lista}
-            onContentSizeChange={() => lista.current?.scrollToEnd({ animated: true })}
-            renderItem={({ item }) => {
-              const propio = item.usuario.id === usuario.id;
-              return (
-                <View
-                  style={[estilos.burbuja, propio ? estilos.propia : estilos.ajena, { backgroundColor: propio ? tema.burbujaPropia : tema.burbujaAjena }]}
-                  accessible
-                  accessibilityLabel={`${propio ? 'Vos' : `${item.usuario.nombre} ${item.usuario.apellido}`}, a las ${formatearHora(item.enviado)}: ${item.mensaje}`}
-                >
-                  {!propio && (
-                    <Text style={[estilos.autor, { color: tema.textoBurbujaAjena }]}>
-                      {item.usuario.nombre} {item.usuario.apellido}
-                    </Text>
-                  )}
-                  <Text style={[tipografia.cuerpo, { color: propio ? tema.textoBurbujaPropia : tema.textoBurbujaAjena }]}>{item.mensaje}</Text>
-                  <Text style={[estilos.hora, { color: propio ? tema.textoBurbujaPropia : tema.textoSecundario }]}>{formatearHora(item.enviado)}</Text>
-                </View>
-              );
-            }}
+        <ZonaLista>
+          <EstadoCarga
+            cargando={cargando}
+            error={error}
+            hayDatos={!!mensajes}
+            vacio={mensajes?.length === 0}
+            mensajeVacio="Todavía no hay mensajes. Escribí una consulta sobre el evento, el acceso o un cambio de fecha."
+            iconoVacio="chatbubbles-outline"
+            alReintentar={recargar}
+          >
+            <FlatList
+              ref={lista}
+              data={mensajes ?? []}
+              keyExtractor={(m, i) => `${m.enviado}-${i}`}
+              style={estilos.flex}
+              contentContainerStyle={estilos.lista}
+              onContentSizeChange={() => lista.current?.scrollToEnd({ animated: true })}
+              renderItem={({ item }) => {
+                const propio = item.usuario.id === usuario.id;
+                return (
+                  <View
+                    style={[estilos.burbuja, propio ? estilos.propia : estilos.ajena, { backgroundColor: propio ? tema.burbujaPropia : tema.burbujaAjena }]}
+                    accessible
+                    accessibilityLabel={`${propio ? 'Vos' : `${item.usuario.nombre} ${item.usuario.apellido}`}, a las ${formatearHora(item.enviado)}: ${item.mensaje}`}
+                  >
+                    {!propio && (
+                      <Text style={[estilos.autor, { color: tema.textoBurbujaAjena }]}>
+                        {item.usuario.nombre} {item.usuario.apellido}
+                      </Text>
+                    )}
+                    <Text style={[tipografia.cuerpo, { color: propio ? tema.textoBurbujaPropia : tema.textoBurbujaAjena }]}>{item.mensaje}</Text>
+                    <Text style={[estilos.hora, { color: propio ? tema.textoBurbujaPropia : tema.textoSecundario }]}>{formatearHora(item.enviado)}</Text>
+                  </View>
+                );
+              }}
+            />
+          </EstadoCarga>
+        </ZonaLista>
+
+        <View style={[estilos.barra, { backgroundColor: tema.superficie, borderTopColor: tema.divisor, paddingBottom: (tecladoAbierto ? 0 : insets.bottom) + espacio.s }]}>
+          <TextInput
+            value={texto}
+            onChangeText={setTexto}
+            placeholder="Escribí un mensaje"
+            placeholderTextColor={tema.textoSecundario}
+            accessibilityLabel="Mensaje"
+            multiline
+            maxLength={500}
+            style={[estilos.entrada, { color: tema.texto, borderColor: tema.borde, backgroundColor: tema.fondo }]}
           />
-        </EstadoCarga>
-      </ZonaLista>
-
-      <View style={[estilos.barra, { backgroundColor: tema.superficie, borderTopColor: tema.divisor, paddingBottom: (tecladoAbierto ? 0 : insets.bottom) + espacio.s }]}>
-        <TextInput
-          value={texto}
-          onChangeText={setTexto}
-          placeholder="Escribí un mensaje"
-          placeholderTextColor={tema.textoSecundario}
-          accessibilityLabel="Mensaje"
-          multiline
-          maxLength={500}
-          style={[estilos.entrada, { color: tema.texto, borderColor: tema.borde, backgroundColor: tema.fondo }]}
-        />
-        <Pressable
-          onPress={enviar}
-          disabled={!puedeEnviar}
-          accessibilityRole="button"
-          accessibilityLabel="Enviar mensaje"
-          accessibilityState={{ disabled: !puedeEnviar, busy: enviando }}
-          style={[estilos.enviar, { backgroundColor: tema.primario, opacity: puedeEnviar ? 1 : 0.5 }]}
-        >
-          <Ionicons name="send" size={22} color={tema.textoSobrePrimario} />
-        </Pressable>
-      </View>
-    </KeyboardAvoidingView>
+          <Pressable
+            onPress={enviar}
+            disabled={!puedeEnviar}
+            accessibilityRole="button"
+            accessibilityLabel="Enviar mensaje"
+            accessibilityState={{ disabled: !puedeEnviar, busy: enviando }}
+            style={[estilos.enviar, { backgroundColor: tema.primario, opacity: puedeEnviar ? 1 : 0.5 }]}
+          >
+            <Ionicons name="send" size={22} color={tema.textoSobrePrimario} />
+          </Pressable>
+        </View>
+      </KeyboardAvoidingView>
+    </View>
   );
 }
 
