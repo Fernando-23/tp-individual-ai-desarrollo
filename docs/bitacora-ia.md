@@ -155,3 +155,39 @@ las dificultades del proceso. Es la base de la conclusión final del video.
   daltonismo, con ícono y texto en cada estado: así no hace falta un modo
   aparte. El modo oscuro quedó como tarea opcional (T044), facilitada porque
   todos los colores salen de un tema.
+
+## 2026-11-19 — Implementación 003: app mobile (Expo)
+
+- **Resultado**: las 10 historias implementadas y verificadas por el usuario
+  en su Android con Expo Go (SDK 58). La app tiene 85 tests de lógica pura,
+  lint limpio y el bundle de Android compila. Ninguna pantalla usa `fetch`
+  directo ni colores escritos a mano.
+- **Lo que hizo bien la IA**:
+  - leyó la documentación del SDK 58 (es posterior a su conocimiento)
+    antes de escribir la navegación, y verificó las APIs en los tipos
+    instalados en `node_modules` (por ejemplo, el selector de fecha usa
+    `onValueChange` en la 9.2.1);
+  - la accesibilidad AAA se volvió **medible**: un test calcula el contraste
+    de cada par de colores (el mínimo de texto es 8,72:1);
+  - el "modo daltónico" se resolvió con una paleta segura más ícono y texto
+    en cada estado, sin un modo aparte.
+- **Lo que hubo que corregir y cómo se detectó**:
+  - *Conflicto de versiones* (`react-dom` 19.3.1 contra `react` 19.3.0): lo
+    detectó un `npm install` que falló. Se resolvió con `npx expo install
+    react-dom`.
+  - *PowerShell bloquea `npm.ps1`*: no se cambió la política de seguridad;
+    se usa `npm.cmd`.
+  - *Lint de React 19* ("no leer refs durante el render"): se rediseñó el
+    contexto del usuario. Además, ahora cada pantalla recarga sola al cambiar
+    de usuario.
+  - *Tarjetas que se dibujaban sobre los filtros al deslizar* (Android): lo
+    vio el usuario en el celular. Se resolvió con un contenedor que recorta la
+    lista y 32 px de separación, que pidió el usuario.
+  - *"Se actualiza solo" en el chat*: el usuario lo encontró raro (es un
+    detalle técnico) y se sacó.
+  - *Franja blanca sobre el teclado*: el desplazamiento era un número fijo
+    (100). Ahora se mide en pantalla con `measureInWindow`.
+- **Reflexión**: el código compiló y los tests pasaron casi siempre al primer
+  intento, pero **4 de los 6 problemas solo aparecieron en el celular real o
+  en la mirada del usuario**. Ningún test automático los habría detectado.
+  Para la UI, la verificación humana en el dispositivo no se pudo reemplazar.

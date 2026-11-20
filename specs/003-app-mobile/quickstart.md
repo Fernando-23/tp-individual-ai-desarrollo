@@ -63,6 +63,8 @@ npm run lint
 
 | Síntoma | Causa y solución |
 |---|---|
+| PowerShell: "la ejecución de scripts está deshabilitada" al correr `npm` o `npx` | Política de ejecución de Windows. Sin cambiarla, usar `npm.cmd start` y `npx.cmd expo start` |
+| Chrome del celular: "no puede proporcionar una conexión segura" al abrir `/salud` | Chrome fuerza https y el backend de desarrollo es http. No afecta a la app: escribir `http://` explícito y elegir "Continuar al sitio" |
 | "No hay conexión con el servidor" | IP equivocada en `.env`, backend apagado o firewall. Probar `/salud` desde el navegador del celular |
 | Expo Go: "Project is incompatible" | Versión de Expo Go distinta del SDK: actualizar Expo Go desde la Play Store |
 | El QR no conecta con Metro | La red aísla los dispositivos: usar `npx expo start --tunnel`, o el hotspot del celular |

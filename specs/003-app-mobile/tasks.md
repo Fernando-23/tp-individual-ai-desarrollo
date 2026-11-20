@@ -283,11 +283,11 @@ automatizados. Cada historia se cierra con:
 
 ## Phase 13: Polish & Cross-Cutting Concerns
 
-- [ ] T039 Recorrido completo en el celular, con el usuario, siguiendo `specs/003-app-mobile/quickstart.md` y los 12 casos de uso. Anotar los problemas encontrados y corregirlos, o registrarlos como pendientes del backend.
-- [ ] T040 [P] Crear `specs/003-app-mobile/trazabilidad.md`, que asocia cada caso de uso con su pantalla, su endpoint y su checkpoint manual (SC-001).
-- [ ] T041 [P] Actualizar `CLAUDE.md` (sección manual: estructura de `mobile/`, comandos y la regla de que todo `fetch` va en `src/api/`).
-- [ ] T042 Correr `npm test` y `npm run lint` en `backend/` y en `mobile/`, y `npx expo export --platform android` en `mobile/`.
-- [ ] T043 Agregar a `docs/bitacora-ia.md` la entrada de la app: qué resolvió bien la IA, qué hubo que corregir en el celular real, qué pidió el backend y qué tal anduvo Expo Go.
+- [X] T039 Recorrido completo en el celular, con el usuario, siguiendo `specs/003-app-mobile/quickstart.md` y los 12 casos de uso. Anotar los problemas encontrados y corregirlos, o registrarlos como pendientes del backend.
+- [X] T040 [P] Crear `specs/003-app-mobile/trazabilidad.md`, que asocia cada caso de uso con su pantalla, su endpoint y su checkpoint manual (SC-001).
+- [X] T041 [P] Actualizar `CLAUDE.md` (sección manual: estructura de `mobile/`, comandos y la regla de que todo `fetch` va en `src/api/`).
+- [X] T042 Correr `npm test` y `npm run lint` en `backend/` y en `mobile/`, y `npx expo export --platform android` en `mobile/`.
+- [X] T043 Agregar a `docs/bitacora-ia.md` la entrada de la app: qué resolvió bien la IA, qué hubo que corregir en el celular real, qué pidió el backend y qué tal anduvo Expo Go.
 - [ ] T044 **(Opcional, después del MVP y solo si hay tiempo antes del domingo)** Implementar el modo oscuro:
   - agregar la paleta `oscuro` en `mobile/src/tema.js`, con sus pares en `PARES_DE_CONTRASTE` (el test de T007 la cubre);
   - hacer que `useTema()` elija con `useColorScheme()` y que `app.json` use `userInterfaceStyle: "automatic"`;
