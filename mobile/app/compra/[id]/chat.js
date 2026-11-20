@@ -1,5 +1,5 @@
-import { useCallback, useRef, useState } from 'react';
-import { FlatList, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { FlatList, Keyboard, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -26,8 +26,31 @@ export default function Chat() {
   const tema = useTema();
   const insets = useSafeAreaInsets();
   const lista = useRef(null);
+  const contenedor = useRef(null);
   const [texto, setTexto] = useState('');
   const [enviando, setEnviando] = useState(false);
+  const [tecladoAbierto, setTecladoAbierto] = useState(false);
+  const [desplazamiento, setDesplazamiento] = useState(0);
+
+  // Con el teclado abierto: sin el margen de la barra de navegación (quedaba una
+  // franja blanca) y la lista baja hasta el último mensaje.
+  useEffect(() => {
+    const mostrar = Keyboard.addListener('keyboardDidShow', () => {
+      setTecladoAbierto(true);
+      lista.current?.scrollToEnd({ animated: true });
+    });
+    const ocultar = Keyboard.addListener('keyboardDidHide', () => setTecladoAbierto(false));
+    return () => {
+      mostrar.remove();
+      ocultar.remove();
+    };
+  }, []);
+
+  // El desplazamiento del teclado es la posición real de la pantalla bajo el
+  // encabezado, medida (sin números fijos que dependen del celular).
+  const medir = useCallback(() => {
+    contenedor.current?.measureInWindow((_x, y) => setDesplazamiento(y));
+  }, []);
 
   const cargar = useCallback(() => api.compras.mensajes(id), [api, id]);
   const { datos: mensajes, cargando, error, recargar } = useRecurso(cargar);
@@ -50,7 +73,13 @@ export default function Chat() {
   }
 
   return (
-    <KeyboardAvoidingView style={[estilos.pantalla, { backgroundColor: tema.fondo }]} behavior="padding" keyboardVerticalOffset={100}>
+    <KeyboardAvoidingView
+      ref={contenedor}
+      onLayout={medir}
+      style={[estilos.pantalla, { backgroundColor: tema.fondo }]}
+      behavior="padding"
+      keyboardVerticalOffset={desplazamiento}
+    >
       {evento ? (
         <View style={[estilos.contexto, { borderBottomColor: tema.divisor }]}>
           <Ionicons name="ticket-outline" size={18} color={tema.textoSecundario} />
@@ -99,7 +128,7 @@ export default function Chat() {
         </EstadoCarga>
       </ZonaLista>
 
-      <View style={[estilos.barra, { backgroundColor: tema.superficie, borderTopColor: tema.divisor, paddingBottom: insets.bottom + espacio.s }]}>
+      <View style={[estilos.barra, { backgroundColor: tema.superficie, borderTopColor: tema.divisor, paddingBottom: (tecladoAbierto ? 0 : insets.bottom) + espacio.s }]}>
         <TextInput
           value={texto}
           onChangeText={setTexto}
