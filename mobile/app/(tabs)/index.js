@@ -9,6 +9,7 @@ import { Chip } from '../../src/componentes/Chip';
 import { EstadoCarga } from '../../src/componentes/EstadoCarga';
 import { Pantalla } from '../../src/componentes/Pantalla';
 import { TarjetaEvento } from '../../src/componentes/TarjetaEvento';
+import { EncabezadoFijo, ZonaLista } from '../../src/componentes/ZonaLista';
 import { espacio, radio, TAMANO_TACTIL } from '../../src/tema';
 
 const ORDENES = [
@@ -44,7 +45,7 @@ export default function Explorar() {
 
   return (
     <Pantalla>
-      <View style={estilos.filtros}>
+      <EncabezadoFijo>
         <View style={[estilos.buscador, { backgroundColor: tema.superficie, borderColor: tema.borde }]}>
           <Ionicons name="search" size={20} color={tema.textoSecundario} />
           <TextInput
@@ -82,31 +83,34 @@ export default function Explorar() {
             />
           ))}
         </View>
-      </View>
+      </EncabezadoFijo>
 
-      <EstadoCarga
-        cargando={cargando}
-        error={error}
-        hayDatos={!!eventos}
-        vacio={eventos?.length === 0}
-        mensajeVacio="No hay eventos que coincidan con tu búsqueda."
-        iconoVacio="search-outline"
-        alReintentar={recargar}
-      >
-        <FlatList
-          data={eventos ?? []}
-          keyExtractor={(e) => e.id}
-          contentContainerStyle={estilos.lista}
-          renderItem={({ item }) => <TarjetaEvento evento={item} onPress={() => router.push(`/evento/${item.id}`)} />}
-          keyboardShouldPersistTaps="handled"
-        />
-      </EstadoCarga>
+      <ZonaLista>
+        <EstadoCarga
+          cargando={cargando}
+          error={error}
+          hayDatos={!!eventos}
+          vacio={eventos?.length === 0}
+          mensajeVacio="No hay eventos que coincidan con tu búsqueda."
+          iconoVacio="search-outline"
+          alReintentar={recargar}
+        >
+          <FlatList
+            data={eventos ?? []}
+            keyExtractor={(e) => e.id}
+            style={estilos.flex}
+            contentContainerStyle={estilos.lista}
+            renderItem={({ item }) => <TarjetaEvento evento={item} onPress={() => router.push(`/evento/${item.id}`)} />}
+            keyboardShouldPersistTaps="handled"
+          />
+        </EstadoCarga>
+      </ZonaLista>
     </Pantalla>
   );
 }
 
 const estilos = StyleSheet.create({
-  filtros: { paddingTop: espacio.m, gap: espacio.s },
+  flex: { flex: 1 },
   buscador: {
     flexDirection: 'row',
     alignItems: 'center',
