@@ -128,7 +128,7 @@ export default function DetalleCompra() {
               )}
               {acciones.has('chatear') && (
                 <Boton titulo={esOrganizador && !esComprador ? 'Chat con el comprador' : 'Chat con el organizador'} icono="chatbubbles" variante="secundario"
-                  onPress={() => router.push(`/compra/${id}/chat`)} />
+                  onPress={() => router.push({ pathname: '/compra/[id]/chat', params: { id, evento: compra.evento.nombre } })} />
               )}
             </View>
 

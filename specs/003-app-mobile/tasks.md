@@ -243,7 +243,7 @@ automatizados. Cada historia se cierra con:
 
 ## Phase 9: User Story 7 - Chatear dentro de una compra (Priority: P2)
 
-- [ ] T035 [US7] Implementar `mobile/app/compra/[id]/chat.js`:
+- [X] T035 [US7] Implementar `mobile/app/compra/[id]/chat.js`:
   - `FlatList` de burbujas: las propias a la derecha en verde, las ajenas a la izquierda en gris, con el nombre (solo en las ajenas) y la hora;
   - `usePolling` cada 4000 ms para recargar los mensajes, con un desplazamiento hasta el final cuando llegan nuevos;
   - un campo de texto con el botón "Enviar", deshabilitado si el texto está vacío o hay un envío en curso;
@@ -255,7 +255,7 @@ automatizados. Cada historia se cierra con:
 
 ## Phase 10: User Story 8 - Reseñar un evento al que fui (Priority: P2)
 
-- [ ] T036 [US8] Implementar `mobile/app/compra/[id]/reseniar.js` (modal):
+- [X] T036 [US8] Implementar `mobile/app/compra/[id]/reseniar.js` (modal):
   - `Estrellas` editable (1 a 5, obligatorio) y un comentario opcional (multilínea);
   - "Enviar" con `reseniar(eventoId, { puntuacion, detalle })`, que si sale bien vuelve atrás y si falla muestra el mensaje.
 
@@ -265,13 +265,13 @@ automatizados. Cada historia se cierra con:
 
 ## Phase 11: User Story 9 - Guardar eventos favoritos (Priority: P3)
 
-- [ ] T037 [US9] En `mobile/app/evento/[id].js`, agregar un ícono de corazón en el encabezado: se ve lleno o vacío según `esFavorito` y alterna con `PUT` o `DELETE`, actualizándose de forma optimista y volviendo atrás si falla. Implementar `mobile/app/(tabs)/favoritos.js`, con la lista de `TarjetaEvento` y el vacío "Todavía no marcaste favoritos". Verificar que compile.
+- [X] T037 [US9] En `mobile/app/evento/[id].js`, agregar un ícono de corazón en el encabezado: se ve lleno o vacío según `esFavorito` y alterna con `PUT` o `DELETE`, actualizándose de forma optimista y volviendo atrás si falla. Implementar `mobile/app/(tabs)/favoritos.js`, con la lista de `TarjetaEvento` y el vacío "Todavía no marcaste favoritos". Verificar que compile.
 
 ---
 
 ## Phase 12: User Story 10 - Publicar un evento (Priority: P3)
 
-- [ ] T038 [US10] Implementar `mobile/app/publicar.js`:
+- [X] T038 [US10] Implementar `mobile/app/publicar.js`:
   - campos de nombre, descripción (multilínea) y URL de imagen (opcional);
   - chips de categoría;
   - fecha y hora con `DateTimePicker` (en Android, primero la fecha y después la hora);

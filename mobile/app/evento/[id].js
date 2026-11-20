@@ -23,7 +23,20 @@ export default function DetalleEvento() {
   const router = useRouter();
   const tema = useTema();
   const cargar = useCallback(() => api.eventos.obtener(id), [api, id]);
-  const { datos: evento, cargando, error, recargar } = useRecurso(cargar);
+  const { datos: evento, cargando, error, recargar, setDatos } = useRecurso(cargar);
+
+  /** Historia 9: favorito optimista; si el servidor falla, vuelve atrás (FR-017). */
+  async function alternarFavorito() {
+    const eraFavorito = evento.esFavorito;
+    setDatos((e) => ({ ...e, esFavorito: !eraFavorito }));
+    try {
+      if (eraFavorito) await api.favoritos.desmarcar(evento.id);
+      else await api.favoritos.marcar(evento.id);
+    } catch (e) {
+      setDatos((ev) => ({ ...ev, esFavorito: eraFavorito }));
+      avisarError(e, 'No se pudo actualizar tus favoritos');
+    }
+  }
 
   const [tipoId, setTipoId] = useState(null);
   const [cantidad, setCantidad] = useState(1);
@@ -68,9 +81,20 @@ export default function DetalleEvento() {
             ) : null}
 
             <View style={estilos.bloque}>
-              <Text style={[tipografia.titulo, { color: tema.texto }]} accessibilityRole="header">
-                {evento.nombre}
-              </Text>
+              <View style={estilos.filaTitulo}>
+                <Text style={[tipografia.titulo, estilos.titulo, { color: tema.texto }]} accessibilityRole="header">
+                  {evento.nombre}
+                </Text>
+                <Pressable
+                  onPress={alternarFavorito}
+                  accessibilityRole="button"
+                  accessibilityLabel={evento.esFavorito ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+                  accessibilityState={{ selected: !!evento.esFavorito }}
+                  style={[estilos.corazon, { borderColor: evento.esFavorito ? tema.peligro : tema.borde, backgroundColor: tema.superficie }]}
+                >
+                  <Ionicons name={evento.esFavorito ? 'heart' : 'heart-outline'} size={26} color={evento.esFavorito ? tema.peligro : tema.textoSecundario} />
+                </Pressable>
+              </View>
               <View style={estilos.fila}>
                 <Ionicons name="calendar" size={18} color={tema.primario} />
                 <Text style={[tipografia.cuerpoFuerte, { color: tema.texto }]}>{formatearFecha(evento.fecha)}</Text>
@@ -195,6 +219,16 @@ const estilos = StyleSheet.create({
   imagen: { width: '100%', aspectRatio: 16 / 9 },
   bloque: { paddingHorizontal: espacio.l, paddingTop: espacio.l, gap: espacio.s },
   fila: { flexDirection: 'row', alignItems: 'center', gap: espacio.s, flexWrap: 'wrap' },
+  filaTitulo: { flexDirection: 'row', alignItems: 'flex-start', gap: espacio.m },
+  titulo: { flex: 1 },
+  corazon: {
+    width: TAMANO_TACTIL,
+    height: TAMANO_TACTIL,
+    borderRadius: TAMANO_TACTIL / 2,
+    borderWidth: 1.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   descripcion: { marginTop: espacio.xs, lineHeight: 23 },
   tipo: {
     flexDirection: 'row',
