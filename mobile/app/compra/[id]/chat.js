@@ -9,6 +9,7 @@ import { useRecurso } from '../../../src/hooks/useRecurso';
 import { useTema } from '../../../src/hooks/useTema';
 import { avisarError } from '../../../src/componentes/avisos';
 import { EstadoCarga } from '../../../src/componentes/EstadoCarga';
+import { ZonaLista } from '../../../src/componentes/ZonaLista';
 import { formatearHora } from '../../../src/logica/formato';
 import { espacio, radio, TAMANO_TACTIL, tipografia } from '../../../src/tema';
 
@@ -53,48 +54,50 @@ export default function Chat() {
       {evento ? (
         <View style={[estilos.contexto, { borderBottomColor: tema.divisor }]}>
           <Ionicons name="ticket-outline" size={18} color={tema.textoSecundario} />
-          <Text style={[tipografia.chico, { color: tema.textoSecundario }]} numberOfLines={1}>
-            Compra de {evento} · se actualiza solo
+          <Text style={[tipografia.chico, estilos.contextoTexto, { color: tema.textoSecundario }]} numberOfLines={1}>
+            {evento}
           </Text>
         </View>
       ) : null}
 
-      <EstadoCarga
-        cargando={cargando}
-        error={error}
-        hayDatos={!!mensajes}
-        vacio={mensajes?.length === 0}
-        mensajeVacio="Todavía no hay mensajes. Escribí una consulta sobre el evento, el acceso o un cambio de fecha."
-        iconoVacio="chatbubbles-outline"
-        alReintentar={recargar}
-      >
-        <FlatList
-          ref={lista}
-          data={mensajes ?? []}
-          keyExtractor={(m, i) => `${m.enviado}-${i}`}
-          style={estilos.flex}
-          contentContainerStyle={estilos.lista}
-          onContentSizeChange={() => lista.current?.scrollToEnd({ animated: true })}
-          renderItem={({ item }) => {
-            const propio = item.usuario.id === usuario.id;
-            return (
-              <View
-                style={[estilos.burbuja, propio ? estilos.propia : estilos.ajena, { backgroundColor: propio ? tema.burbujaPropia : tema.burbujaAjena }]}
-                accessible
-                accessibilityLabel={`${propio ? 'Vos' : `${item.usuario.nombre} ${item.usuario.apellido}`}, a las ${formatearHora(item.enviado)}: ${item.mensaje}`}
-              >
-                {!propio && (
-                  <Text style={[estilos.autor, { color: tema.textoBurbujaAjena }]}>
-                    {item.usuario.nombre} {item.usuario.apellido}
-                  </Text>
-                )}
-                <Text style={[tipografia.cuerpo, { color: propio ? tema.textoBurbujaPropia : tema.textoBurbujaAjena }]}>{item.mensaje}</Text>
-                <Text style={[estilos.hora, { color: propio ? tema.textoBurbujaPropia : tema.textoSecundario }]}>{formatearHora(item.enviado)}</Text>
-              </View>
-            );
-          }}
-        />
-      </EstadoCarga>
+      <ZonaLista>
+        <EstadoCarga
+          cargando={cargando}
+          error={error}
+          hayDatos={!!mensajes}
+          vacio={mensajes?.length === 0}
+          mensajeVacio="Todavía no hay mensajes. Escribí una consulta sobre el evento, el acceso o un cambio de fecha."
+          iconoVacio="chatbubbles-outline"
+          alReintentar={recargar}
+        >
+          <FlatList
+            ref={lista}
+            data={mensajes ?? []}
+            keyExtractor={(m, i) => `${m.enviado}-${i}`}
+            style={estilos.flex}
+            contentContainerStyle={estilos.lista}
+            onContentSizeChange={() => lista.current?.scrollToEnd({ animated: true })}
+            renderItem={({ item }) => {
+              const propio = item.usuario.id === usuario.id;
+              return (
+                <View
+                  style={[estilos.burbuja, propio ? estilos.propia : estilos.ajena, { backgroundColor: propio ? tema.burbujaPropia : tema.burbujaAjena }]}
+                  accessible
+                  accessibilityLabel={`${propio ? 'Vos' : `${item.usuario.nombre} ${item.usuario.apellido}`}, a las ${formatearHora(item.enviado)}: ${item.mensaje}`}
+                >
+                  {!propio && (
+                    <Text style={[estilos.autor, { color: tema.textoBurbujaAjena }]}>
+                      {item.usuario.nombre} {item.usuario.apellido}
+                    </Text>
+                  )}
+                  <Text style={[tipografia.cuerpo, { color: propio ? tema.textoBurbujaPropia : tema.textoBurbujaAjena }]}>{item.mensaje}</Text>
+                  <Text style={[estilos.hora, { color: propio ? tema.textoBurbujaPropia : tema.textoSecundario }]}>{formatearHora(item.enviado)}</Text>
+                </View>
+              );
+            }}
+          />
+        </EstadoCarga>
+      </ZonaLista>
 
       <View style={[estilos.barra, { backgroundColor: tema.superficie, borderTopColor: tema.divisor, paddingBottom: insets.bottom + espacio.s }]}>
         <TextInput
@@ -126,6 +129,7 @@ const estilos = StyleSheet.create({
   pantalla: { flex: 1 },
   flex: { flex: 1 },
   contexto: { flexDirection: 'row', alignItems: 'center', gap: espacio.s, paddingHorizontal: espacio.l, paddingVertical: espacio.s, borderBottomWidth: 1 },
+  contextoTexto: { flex: 1, fontWeight: '700' },
   lista: { padding: espacio.l, gap: espacio.s },
   burbuja: { maxWidth: '82%', padding: espacio.m, borderRadius: radio.l, gap: 2 },
   propia: { alignSelf: 'flex-end', borderBottomRightRadius: radio.s },
